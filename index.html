@@ -328,12 +328,166 @@
     }
 
     /* ========================================
-       FADE-UP ANIMATION
+       ANIMATION KEYFRAMES (Effects)
+    ======================================== */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ========================================
+       EFFECT 1: HERO TEXT STAGGERED FADE-IN
+    ======================================== */
+    .hero-badge {
+      animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+      opacity: 0;
+    }
+    .hero-title-animated {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+      opacity: 0;
+    }
+    .hero-slogan-animated {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      opacity: 0;
+    }
+    .hero-positioning-animated {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+      opacity: 0;
+    }
+    .hero-ctas-animated {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+      opacity: 0;
+    }
+
+    /* ========================================
+       EFFECT 2: BUTTON SHINE SWEEP
+    ======================================== */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transition: left 0.55s ease;
+      z-index: 1;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(255, 69, 0, 0.3);
+    }
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s ease;
+    }
+    .btn-primary > * { position: relative; z-index: 2; }
+
+    .btn-secondary {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-secondary::before {
+      content: '';
+      position: absolute;
+      inset: -1.5px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: -1;
+    }
+    .btn-secondary:hover {
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-secondary:hover::before { opacity: 1; }
+    .btn-secondary > * { position: relative; z-index: 2; }
+    .btn-arrow {
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.25s ease;
+    }
+    .btn-primary:hover .btn-arrow,
+    .btn-secondary:hover .btn-arrow { transform: translateX(4px); }
+
+    /* ========================================
+       EFFECT 3: CARD HOVER LIFT + GLOW
+    ======================================== */
+    .product-card {
+      transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        border-color 0.25s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+      border-color: var(--card-border, var(--accent));
+    }
+    .team-card {
+      transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        border-color 0.25s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--text-secondary);
+    }
+    .tech-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--text-secondary);
+    }
+    .contact-card:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    /* ========================================
+       EFFECT 4: GRADIENT TITLE ANIMATION
+    ======================================== */
+    .gradient-animated {
+      background: linear-gradient(
+        110deg,
+        var(--text-primary) 0%,
+        var(--accent) 25%,
+        var(--accent-secondary) 40%,
+        var(--accent) 60%,
+        var(--text-primary) 80%,
+        var(--text-primary) 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s linear infinite;
+    }
+
+    /* ========================================
+       EFFECT 5: MOUSE-REACTIVE PARTICLE FIELD
+    ======================================== */
+    // Canvas canvas (handled in JS)
+
+    /* ========================================
+       FADE-UP ANIMATION (scroll-triggered)
     ======================================== */
     .fade-up {
       opacity: 0;
       transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .fade-up.visible {
       opacity: 1;
@@ -791,23 +945,23 @@
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <div class="hero-spectrum">
-      <canvas id="spectrumCanvas"></canvas>
+      <canvas id="particlesCanvas"></canvas>
     </div>
-    <div class="hero-badge fade-up">
+    <div class="hero-badge hero-badge-animated">
       <span class="dot"></span>
       2026年4月 · 深圳
     </div>
-    <h1 class="hero-title fade-up fade-up-delay-1">
+    <h1 class="hero-title hero-title-animated">
       <span class="brand">MelSpectrum</span>
       <span class="brand-cn">融谱智能科技</span>
     </h1>
-    <p class="hero-slogan fade-up fade-up-delay-2">
+    <p class="hero-slogan hero-slogan-animated">
       让<em>智能硬件</em>，从实验室走进日常生活
     </p>
-    <p class="hero-positioning fade-up fade-up-delay-3" style="color: var(--accent); font-size: 15px; font-weight: 500; margin-bottom: 32px; letter-spacing: 0.5px; max-width: 520px; text-align: center;">
+    <p class="hero-positioning hero-positioning-animated" style="color: var(--accent); font-size: 15px; font-weight: 500; margin-bottom: 32px; letter-spacing: 0.5px; max-width: 520px; text-align: center;">
       感知驱动智能 · 从脑电到琴弦，我们让机器读懂人
     </p>
-    <div class="hero-ctas fade-up fade-up-delay-4">
+    <div class="hero-ctas hero-ctas-animated">
       <a href="https://somnil.top" class="btn-primary" target="_blank">
         探索 Somnil
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -844,7 +998,7 @@
   <section id="products">
     <div class="products-header">
       <div class="section-label fade-up">Products</div>
-      <h2 class="section-title fade-up fade-up-delay-1">产品矩阵</h2>
+      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">产品矩阵</h2>
       <p class="section-desc fade-up fade-up-delay-2">两条技术路线，一个核心目标：用感知改变生活</p>
       <p class="section-bridge fade-up fade-up-delay-3" style="color: var(--text-secondary); font-size: 15px; margin-top: 20px; font-style: italic;">
         Somnil 用脑电感知入睡，Piano Tuner 用声学感知音准 —— 本质都是让机器理解人
@@ -912,7 +1066,7 @@
   <section id="technology">
     <div class="tech-header">
       <div class="section-label fade-up">Technology</div>
-      <h2 class="section-title fade-up fade-up-delay-1">技术能力</h2>
+      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">技术能力</h2>
       <p class="section-desc fade-up fade-up-delay-2" style="margin: 0 auto;">四大核心技术模块，支撑产品矩阵持续扩展</p>
     </div>
     <div class="tech-grid">
@@ -943,7 +1097,7 @@
   <section id="about">
     <div class="about-header">
       <div class="section-label fade-up">About</div>
-      <h2 class="section-title fade-up fade-up-delay-1">关于融谱</h2>
+      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">关于融谱</h2>
     </div>
     <div class="about-content">
       <p class="about-text fade-up fade-up-delay-2">
@@ -976,7 +1130,7 @@
   <section id="team">
     <div class="team-header">
       <div class="section-label fade-up">Team</div>
-      <h2 class="section-title fade-up fade-up-delay-1">创始团队</h2>
+      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">创始团队</h2>
       <p class="section-desc fade-up fade-up-delay-2" style="margin: 0 auto;">专注人机交互智能硬件，让前沿技术走进日常生活</p>
     </div>
     <div class="team-grid">
@@ -994,7 +1148,7 @@
   <section id="contact">
     <div class="contact-header">
       <div class="section-label fade-up">Contact</div>
-      <h2 class="section-title fade-up fade-up-delay-1">联系我们</h2>
+      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">联系我们</h2>
       <p class="section-desc fade-up fade-up-delay-2" style="margin: 0 auto;">欢迎商务合作、媒体联系与投资咨询</p>
     </div>
     <div class="contact-cards fade-up fade-up-delay-3">
@@ -1056,7 +1210,112 @@
 
   <script>
     // ========================================
-    // INTERSECTION OBSERVER — FADE-UP ANIMATION
+    // EFFECT 1: HERO TEXT — CSS handles stagger via animation-delay
+    // (already set via .hero-badge-animated etc. CSS classes)
+    // Remove old fade-up on hero elements (now CSS animation-based)
+    document.querySelectorAll('.hero-badge-animated, .hero-title-animated, .hero-slogan-animated, .hero-positioning-animated, .hero-ctas-animated').forEach(el => {
+      el.classList.remove('fade-up', 'fade-up-delay-1', 'fade-up-delay-2', 'fade-up-delay-3', 'fade-up-delay-4');
+    });
+
+    // ========================================
+    // EFFECT 5: MOUSE-REACTIVE PARTICLE FIELD
+    // ========================================
+    (function() {
+      const canvas = document.getElementById('particlesCanvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [], mouse = { x: -2000, y: -2000 };
+      const COLORS = ['#FF4500', '#FF6B35', '#4A9EFF', '#FF8C5A'];
+
+      function resize() {
+        if (!canvas.parentElement) return;
+        W = canvas.width = canvas.parentElement.offsetWidth;
+        H = canvas.height = canvas.parentElement.offsetHeight;
+      }
+
+      function createParticles() {
+        particles = [];
+        const spacing = 32;
+        const cols = Math.floor(W / spacing) + 2;
+        const rows = Math.floor(H / spacing) + 2;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            particles.push({
+              x: c * spacing + Math.random() * 8,
+              y: r * spacing + Math.random() * 8,
+              baseX: c * spacing + Math.random() * 8,
+              baseY: r * spacing + Math.random() * 8,
+              vx: 0, vy: 0,
+              color: COLORS[Math.floor(Math.random() * COLORS.length)],
+              size: Math.random() * 1.5 + 0.8,
+              glow: Math.random() * 0.5 + 0.2,
+            });
+          }
+        }
+      }
+
+      canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.addEventListener('mouseleave', () => {
+        mouse.x = -2000; mouse.y = -2000;
+      });
+
+      window.addEventListener('resize', () => { resize(); createParticles(); });
+      resize(); createParticles();
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const REPEL_R = 120;
+        const REPEL_STR = 0.08;
+        const RETURN_STR = 0.03;
+        const DAMP = 0.88;
+
+        particles.forEach(p => {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < REPEL_R) {
+            const force = (REPEL_R - dist) / REPEL_R * REPEL_STR;
+            p.vx += (dx / dist) * force * 60;
+            p.vy += (dy / dist) * force * 60;
+          }
+          p.vx += (p.baseX - p.x) * RETURN_STR;
+          p.vy += (p.baseY - p.y) * RETURN_STR;
+          p.vx *= DAMP; p.vy *= DAMP;
+          p.x += p.vx; p.y += p.vy;
+
+          const alpha = dist < REPEL_R
+            ? 0.3 + 0.7 * (1 - dist / REPEL_R)
+            : 0.12 + p.glow * 0.08;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.min(1, alpha);
+          ctx.fill();
+
+          if (dist < REPEL_R * 0.6) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+            const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+            grd.addColorStop(0, p.color + '55');
+            grd.addColorStop(1, 'transparent');
+            ctx.fillStyle = grd;
+            ctx.globalAlpha = (1 - dist / (REPEL_R * 0.6)) * 0.35;
+            ctx.fill();
+          }
+        });
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // ========================================
+    // EFFECT 6: INTERSECTION OBSERVER — SCROLL REVEAL
     // ========================================
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1096,50 +1355,13 @@
     }
 
     // ========================================
-    // SPECTRUM CANVAS ANIMATION
+    // SPECTRUM CANVAS (legacy, kept for reference — replaced by particles)
     // ========================================
-    const canvas = document.getElementById('spectrumCanvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.offsetWidth;
-      canvas.height = canvas.parentElement.offsetHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    let time = 0;
-    function drawSpectrum() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const h = canvas.height;
-      const w = canvas.width;
-
-      // Draw multiple wave layers
-      for (let layer = 0; layer < 3; layer++) {
-        ctx.beginPath();
-        const amplitude = 30 + layer * 15;
-        const frequency = 0.008 - layer * 0.002;
-        const speed = 0.5 + layer * 0.3;
-        const alpha = 0.3 - layer * 0.08;
-        const color = layer === 1 ? '74, 158, 255' : '255, 69, 0';
-
-        for (let x = 0; x <= w; x += 2) {
-          const y = h * 0.5 + Math.sin(x * frequency + time * speed) * amplitude * Math.sin(x * 0.003 + time * 0.2);
-          if (x === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.strokeStyle = `rgba(${color}, ${alpha})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      time += 0.02;
-      requestAnimationFrame(drawSpectrum);
-    }
-    drawSpectrum();
+    // const canvas = document.getElementById('spectrumCanvas');
+    // (replaced by particlesCanvas for mouse-reactive particle field)
 
     // ========================================
-    // COUNTER ANIMATION (hero numbers)
+    // COUNTER ANIMATION (for stat numbers)
     // ========================================
     function animateCounter(el, target, duration) {
       const start = performance.now();
