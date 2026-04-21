@@ -909,3 +909,167 @@ https://github.com/DavidHDev/react-bits
 Copyright (c) 2024 DavidHDev
 https://mit-license.org/
 -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  07. Light Rays 背景特效（顶灯打光）
+  来源参考：react-bits Background Studio (MIT License, DavidHDev)
+  https://reactbits.dev/
+  MELSPECTRUM 自创实现（纯 HTML/CSS/JS，非 React）
+═══════════════════════════════════════════════════════════════════════════ -->
+<style>
+.light-rays-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background: #0a0a0f;
+  border-radius: 16px;
+}
+.light-rays-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(120,120,255,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% -5%, rgba(180,180,255,0.08) 0%, transparent 50%);
+  animation: raysPulse 4s ease-in-out infinite;
+}
+.light-rays-beam {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200%;
+  height: 70%;
+  background: conic-gradient(
+    from 180deg at 50% 0%,
+    transparent 0deg,
+    rgba(255,255,255,0.03) 20deg,
+    transparent 40deg,
+    rgba(255,255,255,0.05) 60deg,
+    transparent 80deg,
+    rgba(255,255,255,0.03) 100deg,
+    transparent 120deg,
+    rgba(255,255,255,0.04) 140deg,
+    transparent 160deg,
+    rgba(255,255,255,0.06) 180deg
+  );
+  animation: raysRotate 20s linear infinite;
+  pointer-events: none;
+}
+.light-rays-center {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.light-rays-mouse-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 50%), rgba(200,200,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+@keyframes raysPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+@keyframes raysRotate {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+</style>
+<div style="margin:20px 0;">
+  <h3 style="color:#fff; margin-bottom:8px;">07. Light Rays（顶灯打光背景）</h3>
+  <p style="color:#888; font-size:13px; margin-bottom:16px;">鼠标移入看跟随高光效果</p>
+</div>
+<div class="light-rays-container" id="lightRaysDemo">
+  <div class="light-rays-bg"></div>
+  <div class="light-rays-beam"></div>
+  <div class="light-rays-center"></div>
+  <div class="light-rays-mouse-glow" id="lightRaysGlow"></div>
+</div>
+<script>
+(function(){
+  var container = document.getElementById('lightRaysDemo');
+  var glow = document.getElementById('lightRaysGlow');
+  container.addEventListener('mousemove', function(e){
+    var rect = container.getBoundingClientRect();
+    var x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+    var y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+    glow.style.setProperty('--mx', x + '%');
+    glow.style.setProperty('--my', y + '%');
+  });
+})();
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  08. Card Nav 高级菜单栏
+  来源参考：react-bits Components (MIT License, DavidHDev)
+  https://reactbits.dev/components/card-nav
+  MELSPECTRUM 自创实现（纯 HTML/CSS/JS，非 React）
+═══════════════════════════════════════════════════════════════════════════ -->
+<style>
+.card-nav-demo { display: flex; gap: 12px; flex-wrap: wrap; padding: 20px; background: #0d0d14; border-radius: 12px; }
+.card-nav-item {
+  flex: 1;
+  min-width: 140px;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+.card-nav-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(120,120,255,0.1), rgba(80,80,200,0.05));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card-nav-item:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(120,120,255,0.4);
+  box-shadow: 0 8px 32px rgba(80,80,200,0.2);
+}
+.card-nav-item:hover::before { opacity: 1; }
+.card-nav-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+.card-nav-label { font-size: 14px; font-weight: 600; color: #ddd; }
+.card-nav-sub { font-size: 11px; color: #666; margin-top: 4px; }
+</style>
+<div style="margin:20px 0;">
+  <h3 style="color:#fff; margin-bottom:8px;">08. Card Nav（高级菜单卡片）</h3>
+  <p style="color:#888; font-size:13px; margin-bottom:16px;">悬停查看上浮+发光效果</p>
+</div>
+<div class="card-nav-demo">
+  <div class="card-nav-item">
+    <span class="card-nav-icon">🌙</span>
+    <div class="card-nav-label">Somnil</div>
+    <div class="card-nav-sub">睡眠神经监测</div>
+  </div>
+  <div class="card-nav-item">
+    <span class="card-nav-icon">🎹</span>
+    <div class="card-nav-label">Piano Tuner</div>
+    <div class="card-nav-sub">自动调律机器人</div>
+  </div>
+  <div class="card-nav-item">
+    <span class="card-nav-icon">💡</span>
+    <div class="card-nav-label">About</div>
+    <div class="card-nav-sub">了解更多</div>
+  </div>
+  <div class="card-nav-item">
+    <span class="card-nav-icon">📬</span>
+    <div class="card-nav-label">Contact</div>
+    <div class="card-nav-sub">联系我们</div>
+  </div>
+</div>
