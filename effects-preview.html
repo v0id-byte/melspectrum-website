@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MelSpectrum 动效特效参考演示</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f8;
+      --bg-card: #ffffff;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555555;
+      --text-muted: #999999;
+      --border: #e5e5e5;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-spring: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 60px;
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+      max-width: 600px;
+    }
+    .code-snippet {
+      background: #f4f4f5;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.82rem;
+      color: #3a3a3a;
+      line-height: 1.7;
+      white-space: pre;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 60px 0;
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 1: Hero Text Staggered Fade-In
+       ──────────────────────────────────────────────────────────── */
+    .hero-demo {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 80px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: 6px 14px 6px 10px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      opacity: 0;
+    }
+    .hero-title .line1 {
+      display: inline-block;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    }
+    .hero-title .line2 {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+    }
+
+    .hero-cta {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 2: Button Shine Sweep
+       ──────────────────────────────────────────────────────────── */
+    .btn-demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      overflow: hidden;
+      transition: transform var(--transition-spring), box-shadow var(--transition-spring);
+      text-decoration: none;
+    }
+
+    /* Primary: solid accent fill + shine sweep */
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(108, 92, 231, 0.25);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transition: left 0.55s ease;
+      z-index: 1;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.4);
+    }
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s ease;
+    }
+    .btn-primary > * { position: relative; z-index: 2; }
+
+    /* Ghost: border-only variant */
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1.5px solid var(--border);
+      box-shadow: none;
+    }
+    .btn-ghost::before {
+      content: '';
+      position: absolute;
+      inset: -1.5px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      opacity: 0;
+      transition: opacity var(--transition-base);
+      z-index: -1;
+    }
+    .btn-ghost:hover {
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-ghost:hover::before { opacity: 1; }
+    .btn-ghost > * { position: relative; z-index: 2; }
+
+    /* Arrow icon inside button */
+    .btn-arrow {
+      display: inline-flex;
+      align-items: center;
+      transition: transform var(--transition-base);
+    }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 3: Card Hover — Scale + Shadow + Border Glow
+       ──────────────────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-decoration: none;
+      transition:
+        transform var(--transition-spring),
+        box-shadow var(--transition-spring),
+        border-color var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(108,92,231,0.06), transparent);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+    .feature-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(108, 92, 231, 0.12);
+      border-color: rgba(108, 92, 231, 0.3);
+    }
+    .feature-card:hover::after { opacity: 1; }
+    .feature-card > * { position: relative; z-index: 2; }
+
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--bg-secondary);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+      transition: background var(--transition-base);
+    }
+    .feature-card:hover .card-icon { background: rgba(108,92,231,0.1); }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 4: Gradient Title — Animated gradient text clip
+       ──────────────────────────────────────────────────────────── */
+    .gradient-title-demo {
+      padding: 40px 48px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+
+    .gradient-animated-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      background: linear-gradient(
+        110deg,
+        #1a1a1a 0%,
+        var(--accent) 25%,
+        var(--accent-light) 40%,
+        var(--accent) 60%,
+        #1a1a1a 80%,
+        #1a1a1a 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s linear infinite;
+    }
+
+    .gradient-animated-title.light {
+      background: linear-gradient(
+        110deg,
+        var(--accent) 0%,
+        #fff 30%,
+        var(--accent-light) 50%,
+        var(--accent) 70%,
+        #fff 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s linear infinite;
+    }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 5: Floating Particles / Dot Field (mouse-reactive)
+       ──────────────────────────────────────────────────────────── */
+    .particles-demo {
+      position: relative;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 80px 48px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .particles-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .particles-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .particles-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 6: Scroll Reveal — Intersection Observer fade-in
+       ──────────────────────────────────────────────────────────── */
+    .reveal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .reveal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow var(--transition-spring);
+    }
+    .reveal-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-card:nth-child(2) { transition-delay: 0.1s; }
+    .reveal-card:nth-child(3) { transition-delay: 0.2s; }
+    .reveal-card:nth-child(4) { transition-delay: 0.3s; }
+
+    .reveal-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+    }
+
+    .reveal-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .reveal-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       EFFECT 7: Magnetic Button (mouse-proximity effect)
+       ──────────────────────────────────────────────────────────── */
+    .magnetic-demo {
+      padding: 40px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-magnetic {
+      position: relative;
+      padding: 16px 32px;
+      background: var(--text-primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    /* ────────────────────────────────────────────────────────────
+       Utility
+       ──────────────────────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(108,92,231,0.08);
+      color: var(--accent);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .reveal-grid { grid-template-columns: 1fr; }
+      .hero-demo { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <h1>动效特效参考演示</h1>
+  <p class="subtitle">基于 react-bits 灵感，为 MelSpectrum 官网精选的 6 个轻量动效。全部纯 HTML/CSS/JS，无需框架。</p>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EFFECT 1 — Hero 文字渐入动画
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">01 · 入场动画</div>
+    <div class="section-title">Hero 文字交错渐入</div>
+    <div class="section-desc">
+      页面加载时，badge → 主标题 → 副标题 → 按钮依次淡入上浮，间隔 150ms。
+      cubic-bezier(0.16, 1, 0.3, 1) 带来轻微的弹性感，适合首屏。
+    </div>
+    <div class="code-snippet">/* 核心动画 keyframes */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 各元素错开延迟 */
+.hero-badge  { animation: fadeInDown 0.7s ... 0.1s forwards; }
+.hero-title  { animation: fadeInUp  0.7s ... 0.25s forwards; }
+.hero-subtitle { animation: fadeInUp 0.7s ... 0.55s forwards; }
+.hero-cta    { animation: fadeInUp  0.7s ... 0.7s forwards; }</div>
+
+    <div class="hero-demo">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Piano Tuner V3.0 即将发布
+      </div>
+      <h2 class="hero-title">
+        <span class="line1">让钢琴调律</span><br>
+        <span class="line2">变得简单。</span>
+      </h2>
+      <p class="hero-subtitle">自动化钢琴调律机器人，精准到每一个音分。AI 驱动，开机即用。</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">
+          了解更多 <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EFFECT 2 — 按钮扫光特效
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">02 · 按钮交互</div>
+    <div class="section-title">按钮悬停扫光 + 幽灵按钮渐变</div>
+    <div class="section-desc">
+      Primary 按钮使用 ::before 伪元素做扫光动画；
+      Ghost 按钮悬停时边框渐变为实色填充，无需 JS。
+    </div>
+    <div class="code-snippet">/* Primary 扫光 */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent,
+    rgba(255,255,255,0.35), transparent);
+  transition: left 0.55s ease;
+  z-index: 1;
+}
+.btn-primary:hover::before { left: 100%; }
+
+/* Ghost 渐变填充 */
+.btn-ghost::before {
+  content: '';
+  position: absolute; inset: -1.5px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  opacity: 0; transition: opacity 0.25s ease; z-index: -1;
+}
+.btn-ghost:hover { border-color: transparent; color: #fff; }
+.btn-ghost:hover::before { opacity: 1; }</div>
+
+    <div class="btn-demo-row">
+      <button class="btn btn-primary">
+        立即预约演示 <span class="btn-arrow">→</span>
+      </button>
+      <button class="btn btn-primary">
+        查看产品详情 <span class="btn-arrow">→</span>
+      </button>
+      <button class="btn btn-ghost">
+        联系我们 <span class="btn-arrow">→</span>
+      </button>
+      <button class="btn btn-ghost">
+        下载白皮书 <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EFFECT 3 — 卡片悬停
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">03 · 卡片交互</div>
+    <div class="section-title">卡片悬停 — 上浮 + 阴影 + 边框发光</div>
+    <div class="section-desc">
+      鼠标悬停时卡片 translateY(-6px) scale(1.02)，配合阴影加深和渐变光晕覆盖层。
+      适合产品特性介绍区。
+    </div>
+    <div class="code-snippet">.feature-card {
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.25s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(108, 92, 231, 0.12);
+  border-color: rgba(108, 92, 231, 0.3);
+}</div>
+
+    <div class="card-grid">
+      <a href="#" class="feature-card">
+        <div class="card-icon">🎹</div>
+        <div class="card-title">FOC 无刷电机</div>
+        <div class="card-desc">闭环矢量控制，响应时间&lt;1ms，调律精度±0.5 音分。</div>
+      </a>
+      <a href="#" class="feature-card">
+        <div class="card-icon">📡</div>
+        <div class="card-title">BLE 5.0 无线</div>
+        <div class="card-desc">iOS 原生 App 操控，实时波形显示，历史记录云端同步。</div>
+      </a>
+      <a href="#" class="feature-card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">AI 自适应调律</div>
+        <div class="card-desc">Railsback 曲线智能匹配，告别传统等程调律的偏差问题。</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EFFECT 4 — 渐变色标题动画
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">04 · 标题特效</div>
+    <div class="section-title">渐变色文字动画</div>
+    <div class="section-desc">
+      200% 宽背景渐变随 background-position 无限循环，
+      配合 -webkit-background-clip: text 实现纯 CSS 流光文字。
+      适合 Section 大标题。
+    </div>
+    <div class="code-snippet">.gradient-animated-title {
+  background: linear-gradient(110deg,
+    #1a1a1a 0%, var(--accent) 25%,
+    var(--accent-light) 40%, var(--accent) 60%,
+    #1a1a1a 80%, #1a1a1a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s linear infinite;
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}</div>
+
+    <div class="gradient-title-demo">
+      <h2 class="gradient-animated-title">MelSpectrum — 声音的科学家</h2>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EFFECT 5 — 粒子场（鼠标响应）
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">05 · 背景动效</div>
+    <div class="section-title">鼠标响应式点阵粒子场</div>
+    <div class="section-desc">
+      Canvas 绘制点阵，鼠标靠近时粒子产生径向排斥并带发光效果。
+      适合 Hero 背景或页脚区域，可低调点缀专业感。
+    </div>
+    <div class="code-snippet">// 粒子场核心逻辑（完整代码见下方 JS）
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let mouse = { x: -1000, y: -1000 };
+
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+});
+
+function draw() {
+  // 1. 清空画布
+  // 2. 对每个粒子：计算与鼠标距离，应用排斥力
+  // 3. 更新位置并绘制（带 glow）
+  // 4. requestAnimationFrame(draw)
+}</div>
+
+    <div class="particles-demo">
+      <canvas id="particles-canvas"></canvas>
+      <div class="particles-content">
+        <div class="particles-title">探索声音的边界</div>
+        <div class="particles-desc">移动鼠标与粒子场互动</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EFFECT 6 — 滚动渐入（Intersection Observer）
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">06 · 滚动动画</div>
+    <div class="section-title">滚动触发的渐入动画</div>
+    <div class="section-desc">
+      Intersection Observer API 监听元素进入视口，批量添加 .revealed 类。
+      配合 transition-delay 实现错落有致的卡片入场效果。
+    </div>
+    <div class="code-snippet">const observer = new IntersectionObserver(
+  entries => entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      observer.unobserve(entry.target);
+    }
+  }),
+  { threshold: 0.15 }
+);
+document.querySelectorAll('.reveal-card').forEach(el => observer.observe(el));
+
+/* CSS */
+.reveal-card {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+              transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-card.revealed { opacity: 1; transform: translateY(0); }
+.reveal-card:nth-child(2) { transition-delay: 0.1s; }
+.reveal-card:nth-child(3) { transition-delay: 0.2s; }
+.reveal-card:nth-child(4) { transition-delay: 0.3s; }</div>
+
+    <div class="reveal-grid" id="reveal-section">
+      <div class="reveal-card">
+        <h3>精密机械</h3>
+        <p>亚毫米级定位精度，重复定位误差 &lt;0.01mm。</p>
+      </div>
+      <div class="reveal-card">
+        <h3>低噪运行</h3>
+        <p>工作噪音 &lt;35dB，不打扰日常练琴和演出。</p>
+      </div>
+      <div class="reveal-card">
+        <h3>海量音色库</h3>
+        <p>支持 200+ 品牌钢琴音色参数，覆盖主流立式和三角钢琴。</p>
+      </div>
+      <div class="reveal-card">
+        <h3>云端升级</h3>
+        <p>OTA 更新，持续获得新的调律算法和音色优化。</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     PARTICLES JS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], mouse = { x: -2000, y: -2000 };
+  const COLORS = ['#a29bfe', '#6c5ce7', '#74b9ff', '#fd79a8'];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function createParticles() {
+    particles = [];
+    const spacing = 28;
+    const cols = Math.floor(W / spacing) + 2;
+    const rows = Math.floor(H / spacing) + 2;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        particles.push({
+          x: c * spacing + Math.random() * 10,
+          y: r * spacing + Math.random() * 10,
+          baseX: c * spacing + Math.random() * 10,
+          baseY: r * spacing + Math.random() * 10,
+          vx: 0, vy: 0,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          size: Math.random() * 1.5 + 0.8,
+          glow: Math.random() * 0.5 + 0.2,
+        });
+      }
+    }
+  }
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  canvas.addEventListener('mouseleave', () => {
+    mouse.x = -2000; mouse.y = -2000;
+  });
+
+  window.addEventListener('resize', () => { resize(); createParticles(); });
+  resize(); createParticles();
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    const REPEL_R = 120;
+    const REPEL_STR = 0.08;
+    const RETURN_STR = 0.03;
+    const DAMP = 0.88;
+
+    particles.forEach(p => {
+      const dx = p.x - mouse.x;
+      const dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < REPEL_R) {
+        const force = (REPEL_R - dist) / REPEL_R * REPEL_STR;
+        p.vx += (dx / dist) * force * 60;
+        p.vy += (dy / dist) * force * 60;
+      }
+
+      p.vx += (p.baseX - p.x) * RETURN_STR;
+      p.vy += (p.baseY - p.y) * RETURN_STR;
+      p.vx *= DAMP;
+      p.vy *= DAMP;
+      p.x += p.vx;
+      p.y += p.vy;
+
+      const alpha = dist < REPEL_R
+        ? 0.3 + 0.7 * (1 - dist / REPEL_R)
+        : 0.15 + p.glow * 0.1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.min(1, alpha);
+      ctx.fill();
+
+      // Glow
+      if (dist < REPEL_R * 0.6) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+        const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+        grd.addColorStop(0, p.color + '55');
+        grd.addColorStop(1, 'transparent');
+        ctx.fillStyle = grd;
+        ctx.globalAlpha = (1 - dist / (REPEL_R * 0.6)) * 0.4;
+        ctx.fill();
+      }
+    });
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SCROLL REVEAL JS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    }),
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll('.reveal-card').forEach(el => observer.observe(el));
+})();
+</script>
+
+</body>
+</html>
