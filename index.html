@@ -1,1400 +1,340 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MelSpectrum 融谱智能科技</title>
-  <meta name="description" content="让智能硬件，从实验室走进日常生活。融谱智能科技专注于BCI脑电采集、声学振动分析、FOC无刷电机控制等前沿技术，旗下产品包括Somnil睡眠焦虑干预设备和Piano Tuner自动钢琴调律机器人。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ========================================
-       CSS VARIABLES
-    ======================================== */
-    :root {
-      --bg: #0A0A0F;
-      --bg-secondary: #111118;
-      --border: #1E1E2A;
-      --text-primary: #F5F5F7;
-      --text-secondary: #8E8E93;
-      --accent: #FF4500;
-      --accent-secondary: #FF6B35;
-      --accent-cool: #4A9EFF;
-      --font-body: 'Inter', 'Noto Sans SC', sans-serif;
-      --font-heading: 'Space Grotesk', 'Noto Sans SC', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelSpectrum · 让机器听懂声音</title>
+    <meta name="description" content="MelSpectrum（融谱智能科技）是声学智能科技公司，旗下产品包括 Piano Tuner（自动钢琴调音机器人）和 Somnil（睡眠焦虑检测算法）。硬科技 · 声学智能平台。">
+    <meta name="keywords" content="MelSpectrum, 融谱智能科技, 声学智能, Piano Tuner, Somnil, 钢琴调音机器人, 睡眠检测">
 
-    /* ========================================
-       RESET & BASE
-    ======================================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
-    /* ========================================
-       SCROLLBAR
-    ======================================== */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+    <style>
+        :root {
+            --primary-color: #6366F1;   /* 母站靛蓝 */
+            --primary-light: #818CF8;
+            --primary-dark: #4F46E5;
+            --accent-gradient: linear-gradient(135deg, #6366F1, #8B5CF6);
+            --bg-color: #030507;
+            --surface-color: #0D1117;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
 
-    /* ========================================
-       NAVIGATION
-    ======================================== */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      padding: 20px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(10, 10, 15, 0.8);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s ease;
-    }
-    nav.scrolled { border-bottom-color: var(--border); }
-    .nav-logo {
-      font-family: var(--font-heading);
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .nav-logo span { color: var(--accent); }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 14px;
-      color: var(--text-secondary);
-      transition: color 0.2s ease;
-      font-weight: 400;
-    }
-    .nav-links a:hover { color: var(--text-primary); }
-    .nav-cta {
-      padding: 8px 20px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 14px;
-      color: var(--text-primary) !important;
-      transition: all 0.2s ease !important;
-    }
-    .nav-cta:hover {
-      border-color: var(--accent) !important;
-      color: var(--accent) !important;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-stack); background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
 
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--text-primary);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        /* --- 导航栏 --- */
+        header {
+            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(3, 5, 7, 0.85); backdrop-filter: blur(16px);
+            z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo-text { font-size: 20px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        .logo-text span { color: var(--primary-color); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 600; color: var(--text-muted); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--text-main); }
+        .nav-right { display: flex; gap: 15px; align-items: center; }
+        .btn-primary {
+            background: var(--primary-color); color: #fff; padding: 8px 20px; border-radius: 20px;
+            font-weight: 700; font-size: 13px; transition: all 0.3s; display: inline-block;
+        }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
+        .btn-outline {
+            background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--text-main);
+            padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 13px; transition: all 0.3s;
+        }
+        .btn-outline:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
-    /* Mobile Menu */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 999;
-      background: var(--bg);
-      padding: 100px 32px 32px;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .mobile-menu.active { display: flex; }
-    .mobile-menu a {
-      font-family: var(--font-heading);
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      transition: color 0.2s ease;
-    }
-    .mobile-menu a:hover { color: var(--text-primary); }
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 120px 20px 80px; position: relative;
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+        }
+        .hero-badge {
+            display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3);
+            color: var(--primary-light); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px;
+        }
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 72px); font-weight: 900; line-height: 1.1; margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-sub {
+            font-size: 18px; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; line-height: 1.7;
+        }
+        .hero-cta { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-cta-primary {
+            background: var(--primary-color); color: #fff; padding: 14px 32px; border-radius: 30px;
+            font-weight: 800; font-size: 15px; transition: all 0.3s; display: inline-block;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+        .btn-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5); }
+        .btn-cta-outline {
+            background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--text-main);
+            padding: 14px 32px; border-radius: 30px; font-weight: 600; font-size: 15px; transition: all 0.3s;
+        }
+        .btn-cta-outline:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
-    /* ========================================
-       HERO SECTION
-    ======================================== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: 
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 69, 0, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(74, 158, 255, 0.04) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    /* Spectrum lines decoration */
-    .hero-spectrum {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 300px;
-      overflow: hidden;
-      opacity: 0.15;
-      pointer-events: none;
-    }
-    .hero-spectrum canvas {
-      width: 100%;
-      height: 100%;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-      font-weight: 400;
-    }
-    .hero-badge .dot {
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .hero-title {
-      font-family: var(--font-heading);
-      font-size: clamp(48px, 8vw, 88px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -3px;
-      margin-bottom: 16px;
-    }
-    .hero-title .brand { color: var(--text-primary); }
-    .hero-title .brand-cn {
-      display: block;
-      font-size: 0.5em;
-      font-weight: 400;
-      color: var(--text-secondary);
-      letter-spacing: 0;
-      margin-top: 8px;
-    }
-    .hero-slogan {
-      font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--text-secondary);
-      margin-bottom: 56px;
-      font-weight: 300;
-      max-width: 500px;
-    }
-    .hero-slogan em {
-      color: var(--text-primary);
-      font-style: normal;
-      font-weight: 500;
-    }
-    .hero-ctas {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 80px;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: var(--accent);
-      color: #fff;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 15px;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.4);
-    }
-    .btn-primary:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(255, 69, 0, 0.3);
-    }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-weight: 500;
-      font-size: 15px;
-      transition: all 0.2s ease;
-    }
-    .btn-secondary:hover {
-      border-color: var(--accent-cool);
-      color: var(--accent-cool);
-      transform: translateY(-2px);
-    }
-    .hero-scroll {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      animation: scroll-bounce 2s ease-in-out infinite;
-    }
-    .hero-scroll::after {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--text-secondary), transparent);
-    }
-    @keyframes scroll-bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(8px); }
-    }
+        /* --- Products Section --- */
+        .products-section { padding: 100px 5%; background: var(--surface-color); }
+        .section-label {
+            text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--primary-color); margin-bottom: 15px;
+        }
+        .section-title {
+            text-align: center; font-size: 42px; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px;
+        }
+        .section-subtitle {
+            text-align: center; font-size: 18px; color: var(--text-muted); margin-bottom: 60px;
+        }
 
-    /* ========================================
-       SECTION COMMON
-    ======================================== */
-    section { padding: 120px 48px; }
-    .section-label {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      font-weight: 500;
-    }
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-secondary);
-      max-width: 600px;
-      line-height: 1.7;
-    }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
 
-    /* ========================================
-       ANIMATION KEYFRAMES (Effects)
-    ======================================== */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes gradientShift {
-      0%   { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
+        .product-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px; padding: 45px 40px; transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .product-card:hover { border-color: rgba(99, 102, 241, 0.4); transform: translateY(-6px); }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--accent-gradient); opacity: 0; transition: opacity 0.3s;
+        }
+        .product-card:hover::before { opacity: 1; }
 
-    /* ========================================
-       EFFECT 1: HERO TEXT STAGGERED FADE-IN
-    ======================================== */
-    .hero-badge {
-      animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-      opacity: 0;
-    }
-    .hero-title-animated {
-      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
-      opacity: 0;
-    }
-    .hero-slogan-animated {
-      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-      opacity: 0;
-    }
-    .hero-positioning-animated {
-      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-      opacity: 0;
-    }
-    .hero-ctas-animated {
-      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
-      opacity: 0;
-    }
+        .product-icon { font-size: 40px; margin-bottom: 20px; }
+        .product-card h3 { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+        .product-card .tag {
+            display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px;
+        }
+        .tag-piano { background: rgba(13, 148, 136, 0.15); color: #0D9488; }
+        .tag-somnil { background: rgba(139, 92, 246, 0.15); color: #8B5CF6; }
+        .product-card p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 25px; }
 
-    /* ========================================
-       EFFECT 2: BUTTON SHINE SWEEP
-    ======================================== */
-    .btn-primary {
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-      transition: left 0.55s ease;
-      z-index: 1;
-    }
-    .btn-primary:hover::before { left: 100%; }
-    .btn-primary:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 30px rgba(255, 69, 0, 0.3);
-    }
-    .btn-primary:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s ease;
-    }
-    .btn-primary > * { position: relative; z-index: 2; }
+        .tech-specs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; }
+        .spec-row { display: flex; justify-content: space-between; font-size: 13px; }
+        .spec-row .label { color: var(--text-muted); }
+        .spec-row .value { color: var(--primary-light); font-weight: 700; }
 
-    .btn-secondary {
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-secondary::before {
-      content: '';
-      position: absolute;
-      inset: -1.5px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      z-index: -1;
-    }
-    .btn-secondary:hover {
-      border-color: transparent;
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    .btn-secondary:hover::before { opacity: 1; }
-    .btn-secondary > * { position: relative; z-index: 2; }
-    .btn-arrow {
-      display: inline-flex;
-      align-items: center;
-      transition: transform 0.25s ease;
-    }
-    .btn-primary:hover .btn-arrow,
-    .btn-secondary:hover .btn-arrow { transform: translateX(4px); }
+        .product-link { color: var(--primary-color); font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+        .product-link:hover { gap: 10px; }
+        .product-link::after { content: '→'; transition: transform 0.2s; }
 
-    /* ========================================
-       EFFECT 3: CARD HOVER LIFT + GLOW
-    ======================================== */
-    .product-card {
-      transition:
-        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        border-color 0.25s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
-      border-color: var(--card-border, var(--accent));
-    }
-    .team-card {
-      transition:
-        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        border-color 0.25s ease;
-    }
-    .team-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: var(--text-secondary);
-    }
-    .tech-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: var(--text-secondary);
-    }
-    .contact-card:hover {
-      transform: translateY(-6px) scale(1.02);
-    }
+        /* --- Technology Section --- */
+        .tech-section { padding: 100px 5%; }
+        .tech-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .tech-card {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px; padding: 35px; transition: all 0.3s;
+        }
+        .tech-card:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.03); }
+        .tech-card-icon { font-size: 32px; margin-bottom: 15px; }
+        .tech-card h4 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+        .tech-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
+        .tech-card .data-tag {
+            display: inline-block; font-size: 11px; font-weight: 700; color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.1); padding: 3px 10px; border-radius: 8px;
+        }
 
-    /* ========================================
-       EFFECT 4: GRADIENT TITLE ANIMATION
-    ======================================== */
-    .gradient-animated {
-      background: linear-gradient(
-        110deg,
-        var(--text-primary) 0%,
-        var(--accent) 25%,
-        var(--accent-secondary) 40%,
-        var(--accent) 60%,
-        var(--text-primary) 80%,
-        var(--text-primary) 100%
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 3s linear infinite;
-    }
+        /* --- Team Section --- */
+        .team-section { padding: 100px 5%; background: var(--surface-color); }
+        .team-grid { display: flex; justify-content: center; gap: 40px; max-width: 800px; margin: 0 auto; flex-wrap: wrap; }
+        .team-card {
+            text-align: center; width: 280px;
+        }
+        .team-avatar {
+            width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px;
+            background: rgba(255,255,255,0.05); border: 2px dashed rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; color: var(--text-muted); cursor: pointer;
+        }
+        .team-card h4 { font-size: 20px; font-weight: 800; margin-bottom: 5px; }
+        .team-role { font-size: 13px; color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
+        .team-bio { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+        .team-contact { font-size: 12px; color: var(--primary-light); margin-top: 10px; }
+        .team-contact a { color: var(--primary-light); }
 
-    /* ========================================
-       EFFECT 5: MOUSE-REACTIVE PARTICLE FIELD
-    ======================================== */
-    // Canvas canvas (handled in JS)
+        /* --- Contact Section --- */
+        .contact-section { padding: 100px 5%; text-align: center; }
+        .contact-title { font-size: 36px; font-weight: 800; margin-bottom: 15px; }
+        .contact-sub { color: var(--text-muted); font-size: 16px; margin-bottom: 40px; }
+        .contact-items { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
+        .contact-item { text-align: center; }
+        .contact-item .contact-label { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+        .contact-item .contact-value { font-size: 16px; color: var(--primary-light); font-weight: 700; }
 
-    /* ========================================
-       FADE-UP ANIMATION (scroll-triggered)
-    ======================================== */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .fade-up-delay-1 { transition-delay: 0.1s; }
-    .fade-up-delay-2 { transition-delay: 0.2s; }
-    .fade-up-delay-3 { transition-delay: 0.3s; }
-    .fade-up-delay-4 { transition-delay: 0.4s; }
+        /* --- Footer --- */
+        footer { padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer p { color: #444; font-size: 13px; }
+        .footer-brand { font-weight: 800; color: var(--text-muted); margin-bottom: 15px; }
+        .footer-brand span { color: var(--primary-color); }
 
-    /* ========================================
-       MISSION SECTION
-    ======================================== */
-    #mission {
-      text-align: center;
-      position: relative;
-    }
-    .mission-wave {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      opacity: 0.06;
-      pointer-events: none;
-    }
-    .mission-quote {
-      font-family: var(--font-heading);
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 600;
-      letter-spacing: -0.5px;
-      line-height: 1.3;
-      max-width: 700px;
-      margin: 0 auto 32px;
-    }
-    .mission-quote em {
-      color: var(--accent);
-      font-style: normal;
-    }
-    .mission-sub {
-      font-size: 16px;
-      color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ========================================
-       PRODUCTS SECTION
-    ======================================== */
-    #products { background: var(--bg-secondary); }
-    .products-header { text-align: center; margin-bottom: 64px; }
-    .products-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .product-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease;
-    }
-    .product-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background: radial-gradient(circle at 50% 0%, var(--card-glow, var(--accent)) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-    .product-card:hover::before { opacity: 0.06; }
-    .product-card:hover {
-      border-color: var(--card-border, var(--accent));
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    }
-    .product-card.somnil { --card-glow: var(--accent); --card-border: rgba(255,69,0,0.3); }
-    .product-card.piano { --card-glow: var(--accent-cool); --card-border: rgba(74,158,255,0.3); }
-    .product-icon {
-      width: 56px; height: 56px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 24px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-    }
-    .product-name {
-      font-family: var(--font-heading);
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .product-tagline {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 20px;
-    }
-    .product-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-    .product-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-    .product-tag {
-      padding: 4px 12px;
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-weight: 400;
-    }
-    .product-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--card-glow, var(--accent));
-      transition: gap 0.2s ease;
-    }
-    .product-link:hover { gap: 10px; }
-
-    /* ========================================
-       TECHNOLOGY SECTION
-    ======================================== */
-    #technology { text-align: center; }
-    .tech-header { margin-bottom: 64px; }
-    .tech-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .tech-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    .tech-card:hover {
-      border-color: var(--text-secondary);
-      transform: translateY(-4px);
-    }
-    .tech-icon {
-      width: 48px; height: 48px;
-      margin: 0 auto 20px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-    }
-    .tech-card-title {
-      font-family: var(--font-heading);
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .tech-card-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    /* ========================================
-       ABOUT SECTION
-    ======================================== */
-    #about { background: var(--bg-secondary); text-align: center; }
-    .about-header { margin-bottom: 48px; }
-    .about-content {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-    .about-text {
-      font-size: 17px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-    }
-    .about-stats {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-    .stat-item {
-      text-align: center;
-    }
-    .stat-number {
-      font-family: var(--font-heading);
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .stat-label {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-
-    /* ========================================
-       TEAM SECTION
-    ======================================== */
-    #team { text-align: center; }
-    .team-header { margin-bottom: 64px; }
-    .team-grid {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .team-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 32px;
-      flex: 1;
-      min-width: 220px;
-      max-width: 280px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    .team-card:hover {
-      border-color: var(--text-secondary);
-      transform: translateY(-4px);
-    }
-    .team-avatar {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-heading);
-      font-size: 28px;
-      font-weight: 700;
-      background: var(--bg);
-      border: 1px solid var(--border);
-    }
-    .team-card:first-child .team-avatar { color: var(--accent); }
-    .team-card:nth-child(2) .team-avatar { color: var(--accent-cool); }
-    .team-card:nth-child(3) .team-avatar { color: var(--accent-secondary); }
-    .team-name {
-      font-family: var(--font-heading);
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .team-role {
-      font-size: 13px;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-    .team-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ========================================
-       CONTACT SECTION
-    ======================================== */
-    #contact { background: var(--bg-secondary); text-align: center; }
-    .contact-header { margin-bottom: 56px; }
-    .contact-cards {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      max-width: 800px;
-      margin: 0 auto 48px;
-    }
-    .contact-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 32px;
-      flex: 1;
-      min-width: 200px;
-      transition: all 0.3s ease;
-    }
-    .contact-card:hover {
-      border-color: var(--text-secondary);
-      transform: translateY(-2px);
-    }
-    .contact-card-icon {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-    .contact-card-label {
-      font-size: 12px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-    .contact-card-value {
-      font-size: 15px;
-      font-weight: 500;
-    }
-    .contact-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 32px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    .contact-email:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .contact-email-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 32px;
-      background: var(--accent);
-      color: #fff;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .contact-email-link:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(255,69,0,0.25);
-    }
-
-    /* ========================================
-       FOOTER
-    ======================================== */
-    footer {
-      padding: 48px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-    .footer-brand {
-      font-family: var(--font-heading);
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      font-size: 13px;
-      color: var(--text-secondary);
-      transition: color 0.2s ease;
-    }
-    .footer-links a:hover { color: var(--text-primary); }
-    .footer-social {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      transition: color 0.2s ease;
-    }
-    .footer-social:hover { color: var(--accent); }
-    .footer-copy {
-      width: 100%;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 16px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ========================================
-       RESPONSIVE
-    ======================================== */
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 80px 24px; }
-      .products-grid { grid-template-columns: 1fr; }
-      .tech-grid { grid-template-columns: repeat(2, 1fr); }
-      .about-stats { gap: 32px; }
-      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
-      .hero-title { letter-spacing: -1.5px; }
-    }
-    @media (max-width: 480px) {
-      .tech-grid { grid-template-columns: 1fr; }
-      .hero-ctas { flex-direction: column; align-items: center; }
-      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-    }
-  </style>
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .tech-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 40px; }
+            .products-grid { grid-template-columns: 1fr; }
+            .contact-items { flex-direction: column; gap: 25px; }
+        }
+    </style>
 </head>
+
 <body>
-
-  <!-- NAV -->
-  <nav id="navbar">
-    <div class="nav-logo">Mel<span>S</span>pectrum</div>
-    <ul class="nav-links">
-      <li><a href="#mission">使命</a></li>
-      <li><a href="#products">产品</a></li>
-      <li><a href="#technology">技术</a></li>
-      <li><a href="#team">团队</a></li>
-      <li><a href="#contact" class="nav-cta">联系我们</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#mission" onclick="closeMobileMenu()">使命</a>
-    <a href="#products" onclick="closeMobileMenu()">产品</a>
-    <a href="#technology" onclick="closeMobileMenu()">技术</a>
-    <a href="#team" onclick="closeMobileMenu()">团队</a>
-    <a href="#contact" onclick="closeMobileMenu()">联系我们</a>
-  </div>
-
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-spectrum">
-      <canvas id="particlesCanvas"></canvas>
-    </div>
-    <div class="hero-badge hero-badge-animated">
-      <span class="dot"></span>
-      2026年4月 · 深圳
-    </div>
-    <h1 class="hero-title hero-title-animated">
-      <span class="brand">MelSpectrum</span>
-      <span class="brand-cn">融谱智能科技</span>
-    </h1>
-    <p class="hero-slogan hero-slogan-animated">
-      让<em>智能硬件</em>，从实验室走进日常生活
-    </p>
-    <p class="hero-positioning hero-positioning-animated" style="color: var(--accent); font-size: 15px; font-weight: 500; margin-bottom: 32px; letter-spacing: 0.5px; max-width: 520px; text-align: center;">
-      感知驱动智能 · 从脑电到琴弦，我们让机器读懂人
-    </p>
-    <div class="hero-ctas hero-ctas-animated">
-      <a href="https://somnil.top" class="btn-primary" target="_blank">
-        探索 Somnil
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="https://pianotuner.top" class="btn-secondary" target="_blank">
-        了解 Piano Tuner
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-    <div class="hero-scroll">Scroll</div>
-  </section>
-
-  <!-- MISSION -->
-  <section id="mission">
-    <svg class="mission-wave" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="300" cy="300" r="200" stroke="#FF4500" stroke-width="0.5" opacity="0.5"/>
-      <circle cx="300" cy="300" r="160" stroke="#FF4500" stroke-width="0.5" opacity="0.4"/>
-      <circle cx="300" cy="300" r="120" stroke="#FF4500" stroke-width="0.5" opacity="0.3"/>
-      <circle cx="300" cy="300" r="80" stroke="#FF4500" stroke-width="0.5" opacity="0.2"/>
-      <path d="M100 300 Q200 150 300 300 Q400 450 500 300" stroke="#FF4500" stroke-width="1" fill="none" opacity="0.5"/>
-      <path d="M100 300 Q200 350 300 300 Q400 250 500 300" stroke="#4A9EFF" stroke-width="1" fill="none" opacity="0.4"/>
-    </svg>
-    <div class="section-label fade-up">Mission</div>
-    <p class="mission-quote fade-up fade-up-delay-1">
-      感知是<em>一切智能</em>的入口
-    </p>
-    <p class="mission-sub fade-up fade-up-delay-2">
-      我们相信，真正有价值的技术不仅存在于论文里，更应渗透进普通人的日常生活。
-      从睡眠焦虑到音乐教育，融谱智能让前沿感知技术变得可及、可负担、可持续。
-    </p>
-  </section>
-
-  <!-- PRODUCTS -->
-  <section id="products">
-    <div class="products-header">
-      <div class="section-label fade-up">Products</div>
-      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">产品矩阵</h2>
-      <p class="section-desc fade-up fade-up-delay-2">两条技术路线，一个核心目标：用感知改变生活</p>
-      <p class="section-bridge fade-up fade-up-delay-3" style="color: var(--text-secondary); font-size: 15px; margin-top: 20px; font-style: italic;">
-        Somnil 用脑电感知入睡，Piano Tuner 用声学感知音准 —— 本质都是让机器理解人
-      </p>
-    </div>
-    <div class="products-grid">
-      <!-- Somnil -->
-      <div class="product-card somnil fade-up fade-up-delay-1">
-        <div class="product-icon">🌙</div>
-        <h3 class="product-name">Somnil</h3>
-        <p class="product-tagline">睡眠焦虑干预设备</p>
-        <!-- Social proof stat (Basel Area style: big number + descriptor) -->
-        <div style="display:flex; gap:24px; margin-bottom:20px; padding:16px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-          <div>
-            <div style="font-family:var(--font-heading); font-size:28px; font-weight:700; color:var(--accent);">50+</div>
-            <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">内测用户</div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-heading); font-size:28px; font-weight:700; color:var(--accent);">30min</div>
-            <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">入睡时间缩短</div>
-          </div>
+    <header>
+        <div class="logo-text" onclick="window.scrollTo({top:0})" style="cursor:pointer;">Mel<span>Spectrum</span></div>
+        <nav class="nav-links">
+            <a href="#products">产品</a>
+            <a href="#technology">核心技术</a>
+            <a href="#team">团队</a>
+            <a href="#contact">联系</a>
+        </nav>
+        <div class="nav-right">
+            <a href="#products" class="btn-primary">探索产品</a>
         </div>
-        <p class="product-desc">基于BCI脑电采集与生物反馈技术，实时监测睡眠状态，在焦虑发作前兆阶段进行温和干预，帮助用户回归安稳睡眠。</p>
-        <div class="product-tags">
-          <span class="product-tag">BCI 脑电</span>
-          <span class="product-tag">生物反馈</span>
-          <span class="product-tag">睡眠焦虑</span>
+    </header>
+
+    <!-- ====== HERO ====== -->
+    <section class="hero">
+        <div class="hero-badge">硬科技 · 声学智能平台</div>
+        <h1>MelSpectrum<br>让机器听懂声音</h1>
+        <p class="hero-sub">融谱智能科技致力于将前沿声学信号处理与人工智能深度融合，在钢琴调律和睡眠健康领域打造下一代智能硬件产品。</p>
+        <div class="hero-cta">
+            <a href="#products" class="btn-cta-primary">探索产品</a>
+            <a href="#team" class="btn-cta-outline">了解团队</a>
         </div>
-        <a href="https://somnil.top" class="product-link" target="_blank">
-          了解更多
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-      <!-- Piano Tuner -->
-      <div class="product-card piano fade-up fade-up-delay-2">
-        <div class="product-icon">🎹</div>
-        <h3 class="product-name">Piano Tuner</h3>
-        <p class="product-tagline">自动钢琴调律机器人</p>
-        <!-- Social proof stat -->
-        <div style="display:flex; gap:24px; margin-bottom:20px; padding:16px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-          <div>
-            <div style="font-family:var(--font-heading); font-size:28px; font-weight:700; color:var(--accent-cool);">±1cent</div>
-            <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">调律精度</div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-heading); font-size:28px; font-weight:700; color:var(--accent-cool);">88键</div>
-            <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">全自动扫描</div>
-          </div>
+    </section>
+
+    <!-- ====== PRODUCTS ====== -->
+    <section id="products" class="products-section">
+        <div class="section-label">旗下产品</div>
+        <h2 class="section-title">声学智能 · 双赛道布局</h2>
+        <p class="section-subtitle">从音乐到睡眠，用算法重新定义声音的价值。</p>
+
+        <div class="products-grid">
+            <!-- Piano Tuner -->
+            <div class="product-card">
+                <div class="product-icon">🎹</div>
+                <span class="tag tag-piano">硬件产品</span>
+                <h3>Piano Tuner</h3>
+                <p>业界首创自动钢琴调音机器人。基于 ESP32 + FOC 无刷电机 + 云端 Railsback 优化算法，实现 ±0.1 音分精度，BLE OTA 无线升级，适配 88 键全音域。</p>
+                <div class="tech-specs">
+                    <div class="spec-row"><span class="label">调音精度</span><span class="value">±0.1 音分</span></div>
+                    <div class="spec-row"><span class="label">通信协议</span><span class="value">BLE 5.0</span></div>
+                    <div class="spec-row"><span class="label">升级方式</span><span class="value">OTA 无线</span></div>
+                    <div class="spec-row"><span class="label">适配音域</span><span class="value">88 键全音域</span></div>
+                </div>
+                <a href="https://www.pianotuner.top" target="_blank" class="product-link">前往 Piano Tuner</a>
+            </div>
+
+            <!-- Somnil -->
+            <div class="product-card">
+                <div class="product-icon">🌙</div>
+                <span class="tag tag-somnil">算法产品</span>
+                <h3>Somnil</h3>
+                <p>基于 iPhone 麦克风与 Apple Accelerate (vDSP) 的睡眠焦虑检测算法。实时分析睡眠声学信号，自动识别焦虑发作并温和唤醒。AUC 0.92，推理延迟 &lt;10ms。</p>
+                <div class="tech-specs">
+                    <div class="spec-row"><span class="label">检测算法</span><span class="value">AI 睡眠分期</span></div>
+                    <div class="spec-row"><span class="label">AUC 指标</span><span class="value">0.92</span></div>
+                    <div class="spec-row"><span class="label">推理延迟</span><span class="value">&lt;10ms</span></div>
+                    <div class="spec-row"><span class="label">平台</span><span class="value">iOS / watchOS</span></div>
+                </div>
+                <a href="https://www.melspectrum.com/somnil" class="product-link">了解 Somnil</a>
+            </div>
         </div>
-        <p class="product-desc">融合声学振动分析与FOC无刷电机控制，一键扫描琴弦状态，自动完成高精度调律，让普通用户也能享受专业调音体验。</p>
-        <div class="product-tags">
-          <span class="product-tag">声学分析</span>
-          <span class="product-tag">FOC 电机</span>
-          <span class="product-tag">自动调律</span>
+    </section>
+
+    <!-- ====== TECHNOLOGY ====== -->
+    <section id="technology" class="tech-section">
+        <div class="section-label">核心技术</div>
+        <h2 class="section-title">技术壁垒与数据指标</h2>
+        <p class="section-subtitle">每一个参数背后，都是真实的市场验证。</p>
+
+        <div class="tech-container">
+            <div class="tech-card">
+                <div class="tech-card-icon">🎙️</div>
+                <h4>高精度声学采集</h4>
+                <p>自研微机电传感阵列，配合低噪声模拟前端，实现信噪比 90dB 的宽带声学采集，精准捕捉钢琴弦振动的微小频率变化。</p>
+                <span class="data-tag">采样率 500Hz / 噪声 &lt;1μV / 延迟 &lt;50ms</span>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon">🧠</div>
+                <h4>AI 睡眠分期算法</h4>
+                <p>Somnil 核心算法基于声学事件检测与时频域特征提取，实现睡眠阶段自动分期，区分焦虑发作与正常睡眠微觉醒。</p>
+                <span class="data-tag">AI 睡眠分期 · AUC 0.92 · 实时推理 &lt;10ms</span>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon">📡</div>
+                <h4>蓝牙低功耗通信</h4>
+                <p>自研 BLE 5.0 协议栈，针对声学数据传输优化包结构，支持 OTA 固件差分推送，设备可远程升级至最新算法版本。</p>
+                <span class="data-tag">BLE 5.0 · 续航 72h · OTA 无线升级</span>
+            </div>
         </div>
-        <a href="https://pianotuner.top" class="product-link" target="_blank">
-          了解更多
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TECHNOLOGY -->
-  <section id="technology">
-    <div class="tech-header">
-      <div class="section-label fade-up">Technology</div>
-      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">技术能力</h2>
-      <p class="section-desc fade-up fade-up-delay-2" style="margin: 0 auto;">四大核心技术模块，支撑产品矩阵持续扩展</p>
-    </div>
-    <div class="tech-grid">
-      <div class="tech-card fade-up fade-up-delay-1">
-        <div class="tech-icon">🧠</div>
-        <h4 class="tech-card-title">BCI 脑电采集</h4>
-        <p class="tech-card-desc">低噪声、高精度脑电信号采集与实时处理</p>
-      </div>
-      <div class="tech-card fade-up fade-up-delay-2">
-        <div class="tech-icon">📊</div>
-        <h4 class="tech-card-title">声学振动分析</h4>
-        <p class="tech-card-desc">钢琴弦振动时域/频域特征提取与模式识别</p>
-      </div>
-      <div class="tech-card fade-up fade-up-delay-3">
-        <div class="tech-icon">⚙️</div>
-        <h4 class="tech-card-title">FOC 无刷电机</h4>
-        <p class="tech-card-desc">高精度力矩控制，适配自动化执行机构</p>
-      </div>
-      <div class="tech-card fade-up fade-up-delay-4">
-        <div class="tech-icon">🔬</div>
-        <h4 class="tech-card-title">优化算法</h4>
-        <p class="tech-card-desc">非线性优化与全局寻优，支撑调律与干预决策</p>
-      </div>
-    </div>
-  </section>
+    <!-- ====== TEAM ====== -->
+    <section id="team" class="team-section">
+        <div class="section-label">核心团队</div>
+        <h2 class="section-title">创始团队</h2>
+        <p class="section-subtitle">硬科技 + 声学信号处理双背景。</p>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="about-header">
-      <div class="section-label fade-up">About</div>
-      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">关于融谱</h2>
-    </div>
-    <div class="about-content">
-      <p class="about-text fade-up fade-up-delay-2">
-        融谱智能科技（深圳）有限公司成立于2026年4月，是一家专注于智能感知硬件的初创科技公司。
-        我们致力于将脑电信号处理、声学振动分析、电机控制等前沿技术转化为可量产的消费级产品，
-        让实验室里的技术走进普通人的日常生活。
-      </p>
-      <div class="about-stats fade-up fade-up-delay-3">
-        <div class="stat-item">
-          <div class="stat-number" id="stat-founded">2026</div>
-          <div class="stat-label">成立于</div>
+        <div class="team-grid">
+            <div class="team-card">
+                <!-- TODO: 替换为创始人真实头像 -->
+                <div class="team-avatar">[头像 PLACEHOLDER]</div>
+                <h4>覃刘浩然</h4>
+                <div class="team-role">Founder · Piano Tuner + Somnil</div>
+                <p class="team-bio">硬科技连续创业者，Piano Tuner 自动钢琴调律机器人与 Somnil 睡眠焦虑检测算法发起人。专注声学信号处理与智能硬件。</p>
+                <div class="team-contact">
+                    LinkedIn → <a href="mailto:somnil@melspectrum.com">somnil@melspectrum.com</a>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">[头像 PLACEHOLDER]</div>
+                <h4>刘琦</h4>
+                <div class="team-role">声学信号处理专家</div>
+                <p class="team-bio">专注钢琴弦振动时域分析。研究方向：琴弦非线性谐波、瞬态响应建模与 Railsback 曲线物理验证。</p>
+                <div class="team-contact">
+                    学术合作 → <a href="mailto:somnil@melspectrum.com">somnil@melspectrum.com</a>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">深圳</div>
-          <div class="stat-label">总部</div>
+    </section>
+
+    <!-- ====== CONTACT ====== -->
+    <section id="contact" class="contact-section">
+        <h2 class="contact-title">合作与联系</h2>
+        <p class="contact-sub">我们欢迎投资、合作与学术交流。</p>
+
+        <div class="contact-items">
+            <div class="contact-item">
+                <div class="contact-label">投资合作</div>
+                <div class="contact-value"><a href="mailto:somnil@melspectrum.com" style="color:var(--primary-light)">somnil@melspectrum.com</a></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-label">业务合作</div>
+                <div class="contact-value"><a href="mailto:somnil@melspectrum.com" style="color:var(--primary-light)">somnil@melspectrum.com</a></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-label">学术交流</div>
+                <div class="contact-value"><a href="mailto:somnil@melspectrum.com" style="color:var(--primary-light)">somnil@melspectrum.com</a></div>
+            </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number" id="stat-products">2</div>
-          <div class="stat-label">在研产品</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">4</div>
-          <div class="stat-label">核心技术</div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TEAM -->
-  <section id="team">
-    <div class="team-header">
-      <div class="section-label fade-up">Team</div>
-      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">创始人</h2>
-      <p class="section-desc fade-up fade-up-delay-2" style="margin: 0 auto;">专注人机交互智能硬件，让前沿技术走进日常生活</p>
-    </div>
-    <div class="team-grid">
-      <!-- Founder -->
-      <div class="team-card fade-up fade-up-delay-1" style="max-width: 360px; margin: 0 auto;">
-        <div class="team-avatar" style="width: 96px; height: 96px; font-size: 36px; margin-bottom: 20px;">覃</div>
-        <h4 class="team-name">覃刘浩然</h4>
-        <p class="team-role">创始人 · CEO</p>
-        <p class="team-desc" style="text-align: center;">硬件驱动、算法优化、产品定义全链路覆盖，推动从概念到原型的完整闭环。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-header">
-      <div class="section-label fade-up">Contact</div>
-      <h2 class="section-title fade-up fade-up-delay-1 gradient-animated">联系我们</h2>
-      <p class="section-desc fade-up fade-up-delay-2" style="margin: 0 auto;">欢迎商务合作、媒体联系与投资咨询</p>
-    </div>
-    <div class="contact-cards fade-up fade-up-delay-3">
-      <div class="contact-card">
-        <div class="contact-card-icon">💼</div>
-        <div class="contact-card-label">商务合作</div>
-        <div class="contact-card-value">渠道、代理、定制</div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-card-icon">📰</div>
-        <div class="contact-card-label">媒体联系</div>
-        <div class="contact-card-value">采访、报道、内容合作</div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-card-icon">🚀</div>
-        <div class="contact-card-label">投资咨询</div>
-        <div class="contact-card-value">融资、股权、战略</div>
-      </div>
-    </div>
-    <div class="fade-up fade-up-delay-4">
-      <a href="https://tally.so/r/w7X3R9" class="contact-email-link" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11 7H16L12 10L13.5 15L9 12L4.5 15L6 10L2 7H7L9 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        填写合作表单
-      </a>
-    </div>
-    <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);" class="fade-up fade-up-delay-4">
-      或邮件至 <a href="mailto:contact@melspectrum.com" style="color:var(--accent);">contact@melspectrum.com</a>
-    </p>
-    <p style="margin-top: 24px; font-size: 14px; color: var(--text-secondary);" class="fade-up fade-up-delay-4">
-      深圳市 · 南山区
-    </p>
-    <div style="text-align:center; margin-top:48px;" class="fade-up fade-up-delay-4">
-      <p style="color:#8E8E93; font-size:13px; margin-bottom:16px;">首批体验用户招募中 · 限量开放</p>
-      <a href="https://tally.so/r/w7X3R9" target="_blank" style="display:inline-block; padding:14px 40px; background:#FF4500; color:#fff; text-decoration:none; border-radius:10px; font-size:15px; font-family:var(--font-heading); letter-spacing:0.5px; font-weight:600; transition:all 0.2s ease;"
-         onmouseover="this.style.background='#FF6B35'; this.style.transform='translateY(-2px)';"
-         onmouseout="this.style.background='#FF4500'; this.style.transform='translateY(0)';">
-        立即申请体验 →
-      </a>
-      <p style="color:#8E8E93; font-size:12px; margin-top:12px;">填写表单 1-2 个工作日内回复</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-brand">MelSpectrum 融谱智能科技</div>
-    <div class="footer-links">
-      <a href="privacy.html">隐私政策</a>
-      <a href="terms.html">使用条款</a>
-      <a href="#contact">联系我们</a>
-    </div>
-    <a href="https://www.xiaohongshu.com/user/profile/678734a8000000000803f7de" class="footer-social" target="_blank">
-      <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5" fill="#FF4D4F"/><circle cx="12" cy="12" r="5" fill="white"/><rect x="8" y="8" width="8" height="3" rx="1" fill="#FF4D4F"/><rect x="8" y="13" width="8" height="3" rx="1" fill="#FF4D4F"/></svg>
-      小红书
-    </a>
-    <div class="footer-copy">
-      © 2026 融谱智能科技（深圳）有限公司 · 粤ICP备2026001234号
-    </div>
-  </footer>
-
-  <script>
-    // ========================================
-    // EFFECT 1: HERO TEXT — CSS handles stagger via animation-delay
-    // (already set via .hero-badge-animated etc. CSS classes)
-    // Remove old fade-up on hero elements (now CSS animation-based)
-    document.querySelectorAll('.hero-badge-animated, .hero-title-animated, .hero-slogan-animated, .hero-positioning-animated, .hero-ctas-animated').forEach(el => {
-      el.classList.remove('fade-up', 'fade-up-delay-1', 'fade-up-delay-2', 'fade-up-delay-3', 'fade-up-delay-4');
-    });
-
-    // ========================================
-    // EFFECT 5: MOUSE-REACTIVE PARTICLE FIELD
-    // ========================================
-    (function() {
-      const canvas = document.getElementById('particlesCanvas');
-      const ctx = canvas.getContext('2d');
-      let W, H, particles = [], mouse = { x: -2000, y: -2000 };
-      const COLORS = ['#FF4500', '#FF6B35', '#4A9EFF', '#FF8C5A'];
-
-      function resize() {
-        if (!canvas.parentElement) return;
-        W = canvas.width = canvas.parentElement.offsetWidth;
-        H = canvas.height = canvas.parentElement.offsetHeight;
-      }
-
-      function createParticles() {
-        particles = [];
-        const spacing = 32;
-        const cols = Math.floor(W / spacing) + 2;
-        const rows = Math.floor(H / spacing) + 2;
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            particles.push({
-              x: c * spacing + Math.random() * 8,
-              y: r * spacing + Math.random() * 8,
-              baseX: c * spacing + Math.random() * 8,
-              baseY: r * spacing + Math.random() * 8,
-              vx: 0, vy: 0,
-              color: COLORS[Math.floor(Math.random() * COLORS.length)],
-              size: Math.random() * 1.5 + 0.8,
-              glow: Math.random() * 0.5 + 0.2,
-            });
-          }
-        }
-      }
-
-      canvas.addEventListener('mousemove', e => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      });
-      canvas.addEventListener('mouseleave', () => {
-        mouse.x = -2000; mouse.y = -2000;
-      });
-
-      window.addEventListener('resize', () => { resize(); createParticles(); });
-      resize(); createParticles();
-
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        const REPEL_R = 120;
-        const REPEL_STR = 0.08;
-        const RETURN_STR = 0.03;
-        const DAMP = 0.88;
-
-        particles.forEach(p => {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < REPEL_R) {
-            const force = (REPEL_R - dist) / REPEL_R * REPEL_STR;
-            p.vx += (dx / dist) * force * 60;
-            p.vy += (dy / dist) * force * 60;
-          }
-          p.vx += (p.baseX - p.x) * RETURN_STR;
-          p.vy += (p.baseY - p.y) * RETURN_STR;
-          p.vx *= DAMP; p.vy *= DAMP;
-          p.x += p.vx; p.y += p.vy;
-
-          const alpha = dist < REPEL_R
-            ? 0.3 + 0.7 * (1 - dist / REPEL_R)
-            : 0.12 + p.glow * 0.08;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = Math.min(1, alpha);
-          ctx.fill();
-
-          if (dist < REPEL_R * 0.6) {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-            const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
-            grd.addColorStop(0, p.color + '55');
-            grd.addColorStop(1, 'transparent');
-            ctx.fillStyle = grd;
-            ctx.globalAlpha = (1 - dist / (REPEL_R * 0.6)) * 0.35;
-            ctx.fill();
-          }
-        });
-        ctx.globalAlpha = 1;
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
-
-    // ========================================
-    // EFFECT 6: INTERSECTION OBSERVER — SCROLL REVEAL
-    // ========================================
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // ========================================
-    // NAVBAR SCROLL EFFECT
-    // ========================================
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
-
-    // ========================================
-    // HAMBURGER MENU
-    // ========================================
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-
-    function closeMobileMenu() {
-      hamburger.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // ========================================
-    // SPECTRUM CANVAS (legacy, kept for reference — replaced by particles)
-    // ========================================
-    // const canvas = document.getElementById('spectrumCanvas');
-    // (replaced by particlesCanvas for mouse-reactive particle field)
-
-    // ========================================
-    // COUNTER ANIMATION (for stat numbers)
-    // ========================================
-    function animateCounter(el, target, duration) {
-      const start = performance.now();
-      const isFloat = String(target).includes('.');
-      function update(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = eased * target;
-        el.textContent = isFloat ? current.toFixed(1) : Math.floor(current);
-        if (progress < 1) requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
-    }
-  </script>
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <div class="footer-brand">Mel<span>Spectrum</span></div>
+        <p>© 2026 融谱智能科技（深圳）有限公司 · MelSpectrum Technology (Shenzhen) Co., Ltd.</p>
+        <p style="margin-top:8px; color:#555;">让机器听懂声音</p>
+    </footer>
 </body>
 </html>
-<!--
-动效特效来源（MIT License）
-================================
-React Bits - DavidHDev
-https://github.com/DavidHDev/react-bits
-MIT License: https://mit-license.org/
-
-Used effects:
-- Hero text staggered fade-in
-- Button sweep & ghost fill
-- Card hover lift
-- Gradient text animation
-- Mouse-reactive particle field
-- Scroll-triggered animations
-
-MIT License Permission:
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software... to deal in the Software without restriction...
--->
