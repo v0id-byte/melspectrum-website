@@ -12,6 +12,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
+        /* --- Accessibility: prefers-reduced-motion --- */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* --- Accessibility: focus-visible --- */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--primary-color, #6366F1);
+            outline-offset: 2px;
+        }
+
         :root {
             --primary-color: #6366F1;   /* 母站靛蓝 */
             --primary-light: #818CF8;
@@ -20,7 +35,7 @@
             --bg-color: #030507;
             --surface-color: #0D1117;
             --text-main: #ffffff;
-            --text-muted: #888888;
+            --text-muted: #9CA3AF;
             --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
         }
 
@@ -188,6 +203,7 @@
 </head>
 
 <body>
+    <a href="#products" class="skip-link" style="position:absolute;left:-9999px;z-index:9999;padding:8px 16px;background:#6366F1;color:#fff;text-decoration:none;" onfocus="this.style.left='0'" onblur="this.style.left='-9999px'">跳过导航，直达内容</a>
     <header>
         <div class="logo-text" onclick="window.scrollTo({top:0})" style="cursor:pointer;">Mel<span>Spectrum</span></div>
         <nav class="nav-links">
