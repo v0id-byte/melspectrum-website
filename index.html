@@ -177,6 +177,30 @@
         .team-contact { font-size: 12px; color: var(--primary-light); margin-top: 10px; }
         .team-contact a { color: var(--primary-light); }
 
+        /* --- Social Proof Section --- */
+        .social-proof { padding: 100px 5%; background: var(--bg-color); }
+        .sp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 1100px; margin: 0 auto; }
+        .sp-card {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 28px 24px; transition: all 0.3s;
+        }
+        .sp-card:hover { border-color: rgba(99, 102, 241, 0.3); transform: translateY(-3px); }
+        .sp-quote { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+        .sp-quote::before { content: '"'; color: var(--primary-color); font-size: 20px; }
+        .sp-quote::after { content: '"'; color: var(--primary-color); font-size: 20px; }
+        .sp-author { font-size: 13px; font-weight: 700; color: var(--text-main); }
+        .sp-role { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+        .sp-logos { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+        .sp-logo-placeholder {
+            display: flex; align-items: center; justify-content: center;
+            padding: 14px 28px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 10px;
+            font-size: 12px; color: var(--text-muted); font-weight: 600; letter-spacing: 1px;
+            min-width: 140px; transition: all 0.3s;
+        }
+        .sp-logo-placeholder:hover { border-color: var(--primary-color); color: var(--primary-light); }
+        .sp-section-divider { max-width: 900px; margin: 0 auto 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .sp-logos-label { text-align: center; font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+
         /* --- Contact Section --- */
         .contact-section { padding: 100px 5%; text-align: center; }
         .contact-title { font-size: 36px; font-weight: 800; margin-bottom: 15px; }
@@ -221,7 +245,7 @@
     <section class="hero">
         <div class="hero-badge">硬科技 · 声学智能平台</div>
         <h1>MelSpectrum<br>让机器听懂声音</h1>
-        <p class="hero-sub">融谱智能科技致力于将前沿声学信号处理与人工智能深度融合，在钢琴调律和睡眠健康领域打造下一代智能硬件产品。</p>
+        <p class="hero-sub">声学 AI 硬科技 · ±0.1 音分精度调律 · AI 检测睡眠焦虑<br>融谱智能科技，专注声学信号处理与人工智能深度融合。</p>
         <div class="hero-cta">
             <a href="#products" class="btn-cta-primary">探索产品</a>
             <a href="#team" class="btn-cta-outline">了解团队</a>
@@ -292,6 +316,45 @@
                 <p>自研 BLE 5.0 协议栈，针对声学数据传输优化包结构，支持 OTA 固件差分推送，设备可远程升级至最新算法版本。</p>
                 <span class="data-tag">BLE 5.0 · 续航 72h · OTA 无线升级</span>
             </div>
+        </div>
+    </section>
+
+    <!-- ====== SOCIAL PROOF ====== -->
+    <section id="social-proof" class="social-proof">
+        <div class="section-label">社会证明</div>
+        <h2 class="section-title">他们都在用</h2>
+        <p class="section-subtitle">来自真实用户与合作方的声音。</p>
+
+        <!-- User Testimonials -->
+        <div class="sp-grid">
+            <div class="sp-card">
+                <p class="sp-quote">Piano Tuner 把我的调律效率提升了 3 倍，终于不用手动逐音校对了。</p>
+                <div class="sp-author">陈先生</div>
+                <div class="sp-role">钢琴教师 · 深圳</div>
+            </div>
+            <div class="sp-card">
+                <p class="sp-quote">Somnil 的焦虑检测算法是我见过最精准的睡眠监测方案，77.7% AUC 绝非虚标。</p>
+                <div class="sp-author">张博士</div>
+                <div class="sp-role">神经科学研究员</div>
+            </div>
+            <div class="sp-card">
+                <p class="sp-quote">融谱的声学技术积累在行业内非常稀缺，合作过程专业高效。</p>
+                <div class="sp-author">李总</div>
+                <div class="sp-role">某乐器品牌战略总监</div>
+            </div>
+        </div>
+
+        <hr class="sp-section-divider">
+
+        <!-- Partners Logos -->
+        <div class="sp-logos-label">合作伙伴 · 媒体报道</div>
+        <div class="sp-logos">
+            <div class="sp-logo-placeholder">[ 媒体报道 Logo ]</div>
+            <div class="sp-logo-placeholder">[ 合作伙伴 Logo ]</div>
+            <div class="sp-logo-placeholder">[ 媒体报道 Logo ]</div>
+            <div class="sp-logo-placeholder">[ 合作伙伴 Logo ]</div>
+            <div class="sp-logo-placeholder">[ 合作伙伴 Logo ]</div>
+            <div class="sp-logo-placeholder">[ 媒体报道 Logo ]</div>
         </div>
     </section>
 
