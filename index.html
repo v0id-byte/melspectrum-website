@@ -1539,6 +1539,33 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--fg-2);
 }
 
+
+/* ===== de-AI calm pass — AI-flavor effects off for ALL users (2026-06-15) =====
+   Promotes the author's own prefers-reduced-motion ruleset to unconditional,
+   but ONLY for the AI-flavor effects — scroll-reveal choreography is kept. */
+.hero__mark::before, .hero__mark svg { animation: none !important; }
+.hero__title .grad, .hero__title .grad.shine { animation: none !important; background: none !important; -webkit-background-clip: border-box !important; -webkit-text-fill-color: #fff !important; color: #fff !important; }
+.viz-aura, .viz-tone .line, .viz-ripple .ring { animation: none !important; opacity: 0.18 !important; }
+.tuner-readout .live .dot { animation: none !important; box-shadow: none !important; }
+.hero__scroll .line { animation: none !important; }
+.glare-hover::after { display: none !important; }
+.click-spark, .splash-cursor__ring, .splash-cursor__dot, .splash-cursor__ripple { display: none !important; }
+.splash-cursor-on, .splash-cursor-on a, .splash-cursor-on button, .splash-cursor-on input, .splash-cursor-on [role="button"] { cursor: auto !important; }
+.hero__bg .aurora-canvas { display: none !important; }
+.strip { display: none !important; }
+/* ===== end de-AI calm pass ===== */
+
+/* ===== hero: full-bleed pianotuner product render (pianotuner.top-style) 2026-06-15 ===== */
+.hero { background: #04070A url('hero-bg.webp') center 40% / cover no-repeat !important; }
+.hero__bg { display: none !important; }                 /* old aurora overlay layer */
+.hero__product { display: none !important; }            /* old floating product render */
+.hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background: linear-gradient(180deg, rgba(4,7,10,0.46) 0%, rgba(4,7,10,0) 26%, rgba(4,7,10,0) 44%, rgba(4,7,10,0.74) 78%, rgba(4,7,10,0.97) 100%); }
+.hero__inner { position: relative; z-index: 2 !important; }
+.hero__scroll { position: relative; z-index: 2; }
+.hero__title .grad { text-shadow: 0 2px 28px rgba(0,0,0,0.6); }
+@media (max-width: 768px) { .hero { background-position: center 44% !important; } }
+/* ===== end hero full-bleed ===== */
 </style>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
