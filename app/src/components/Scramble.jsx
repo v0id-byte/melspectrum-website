@@ -5,8 +5,13 @@ import ScrambleTextPlugin from 'gsap/ScrambleTextPlugin';
 gsap.registerPlugin(ScrambleTextPlugin);
 
 /**
- * 悬停时字符乱跳再还原。参数取自 spur 源码的 hover 变体：
+ * 字符乱跳再还原。参数取自 spur 源码的 hover 变体：
  * duration 1.75 / revealDelay 0.15 / speed 1.25 / power4.inOut。
+ *
+ * 两个触发方式并存：
+ * - **进场自动跑一次**（IntersectionObserver，跑完即 unobserve）。只靠 hover 的话，
+ *   触屏用户和"滑过去就走"的用户根本看不到这个效果。
+ * - **悬停可重复触发**，仅限真有 hover 的 ≥1024px 设备。
  *
  * ⚠️ 只能用在「中英两态都是拉丁字母或数字」的内容上，绝不用于中文。
  * 原因不是审美：我们的 NotoSansSC-subset.woff2 是按源码文本子集化的，
@@ -21,8 +26,6 @@ export default function Scramble({ children, tag: Tag = 'span', className = '' }
   useEffect(() => {
     const el = ref.current;
     if (!el || prefersReduced()) return undefined;
-    // 触屏没有真正的 hover；小屏也按 motion density 降级
-    if (!window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) return undefined;
 
     let running = false;
     const run = () => {
@@ -37,8 +40,28 @@ export default function Scramble({ children, tag: Tag = 'span', className = '' }
       });
     };
 
-    el.addEventListener('mouseenter', run);
-    return () => { el.removeEventListener('mouseenter', run); gsap.killTweensOf(el); };
+    // 进场自动跑一次。所有尺寸都给，这正是触屏用户唯一能看到它的机会。
+    let io;
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          io.unobserve(e.target);
+          run();
+        });
+      }, { threshold: 0.6 });
+      io.observe(el);
+    }
+
+    // 触屏没有真正的 hover；小屏也按 motion density 降级
+    const hoverable = window.matchMedia('(hover: hover) and (min-width: 1024px)').matches;
+    if (hoverable) el.addEventListener('mouseenter', run);
+
+    return () => {
+      if (io) io.disconnect();
+      if (hoverable) el.removeEventListener('mouseenter', run);
+      gsap.killTweensOf(el);
+    };
   }, [children]);
 
   return <Tag ref={ref} className={className}>{children}</Tag>;
