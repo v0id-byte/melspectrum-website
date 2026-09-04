@@ -8,7 +8,7 @@
 const META = {
   zh: {
     title: 'MelSpectrum · 融谱智能科技 — 让机器听懂声音',
-    desc: '融谱智能科技 MelSpectrum：做声学硬件，也做跑在硬件上的算法。Piano Tuner 调律精度 ±2 音分；Somnil 睡眠分期精度 ~80%（公开临床基准）。让机器听懂声音。',
+    desc: '融谱智能科技 MelSpectrum：做声学硬件，也做跑在硬件上的算法。Piano Tuner 实验室测试调律精度 ±2 音分；Somnil 用额部四通道脑电做睡眠分期，公开临床基准 Sleep-EDF 准确率 0.785、κ 0.715。让机器听懂声音。',
     url: 'https://melspectrum.com/',
     locale: 'zh_CN',
     alt: 'en_US',
@@ -16,7 +16,7 @@ const META = {
   },
   en: {
     title: 'MelSpectrum — Teach Machines to Listen | Acoustic AI',
-    desc: 'MelSpectrum builds acoustic hardware and the algorithms that run on it. Piano Tuner: ±2-cent tuning accuracy. Somnil: ~80% staging accuracy on public clinical benchmarks.',
+    desc: 'MelSpectrum builds acoustic hardware and the algorithms that run on it. Piano Tuner: lab-tested ±2-cent tuning accuracy. Somnil: four-channel frontal EEG sleep staging, 0.785 accuracy and κ 0.715 on the Sleep-EDF public clinical benchmark.',
     url: 'https://melspectrum.com/?lang=en',
     locale: 'en_US',
     alt: 'zh_CN',

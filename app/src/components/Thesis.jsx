@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useT } from '../i18n';
 import { useTextReveal, useReveal, useStackDeck } from '../lib/motion/hooks';
 import { SectionHead } from './ui';
+import { tuning, staging } from '../data/metrics';
 
 export default function Thesis() {
   const { t, lang } = useT();
@@ -13,34 +14,33 @@ export default function Thesis() {
   const cards = [
     {
       num: '01 · ACOUSTICS',
-      metric: '±2 cents',
+      metric: `±${tuning.accuracyCents} ¢`,
       title: t('物理层精度', 'Physical-layer precision'),
       desc: t(
-        '声学硬件配数字信号处理，把调律精度做到人耳分辨极限附近。',
-        'Acoustic hardware and DSP together push tuning precision to the edge of what an ear can resolve.',
+        '声学硬件配数字信号处理，把调律精度做到人耳分辨极限附近。实验室测试结果，最终性能以量产版本验证为准。',
+        'Acoustic hardware and DSP together push tuning precision to the edge of what an ear can resolve. Lab-tested; final performance is whatever the production version verifies.',
       ),
     },
     {
       num: '02 · INTELLIGENCE',
-      metric: '~80%',
+      metric: `κ ${staging.sets[0].kappa}`,
       title: t('睡眠分期算法', 'Sleep-staging algorithm'),
       desc: t(
-        '从声音里读出睡眠分期。在公开临床数据集上，精度接近人类技师之间的一致性水平。',
-        'Sleep staging read from sound. On public clinical datasets, accuracy comes close to the agreement between human scorers.',
+        `单通道脑电做睡眠分期。Sleep-EDF 公开临床基准、被试级留出：准确率 ${staging.sets[0].acc}、κ ${staging.sets[0].kappa}，落在已发表单通道文献区间内。非真机验证。`,
+        `Single-channel EEG sleep staging. On the Sleep-EDF public clinical benchmark, subject-wise held out: ${staging.sets[0].acc} accuracy, κ ${staging.sets[0].kappa} — inside the published range for single-channel work. Not validated on our own hardware.`,
       ),
     },
     {
-      // was <10 ms in the legacy page, contradicting its own description and
-      // every other latency figure on the site. Unified to <50 ms.
-      num: '03 · LATENCY',
-      metric: '<50 ms',
-      title: t('实时响应', 'Real-time response'),
+      num: '03 · INFRASTRUCTURE',
+      metric: 'AS218883',
+      title: t('自有网络', 'Our own network'),
       desc: t(
-        '端到端信号链路 <50 ms —— 从声音发生到系统作出反应，短到察觉不到。',
-        'Under 50 ms, end to end — from the sound happening to the system responding, short enough to go unnoticed.',
+        '连接产品的那条路径也是我们自己运营的。下面每一个数字，你都可以去第三方公共数据库自己查。',
+        'The path our products travel is one we run ourselves. Every figure below it is one you can check for yourself, on third-party public databases.',
       ),
     },
   ];
+
 
   return (
     <section className="island-light p-custom py-section" data-nav-theme="light" ref={root}>

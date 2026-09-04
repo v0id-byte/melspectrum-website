@@ -253,6 +253,14 @@
 .spec { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px dashed var(--color-alabaster); }
 .spec__k { color: var(--color-charcoal); }
 .spec__v { font-weight: 300; font-size: 1.25rem; letter-spacing: -0.02em; }
+/* 强制披露脚注：调律精度与分期精度都不允许裸写，见 data/metrics.js 顶部注释。
+   刻意不套 .t-ui —— 大写是 UI 标签的语义，整段句子大写既难读也不合排版纪律。 */
+.specs__note {
+  margin-top: 14px; max-width: 46ch;
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.7;
+  letter-spacing: 0.01em; text-transform: none;
+  color: var(--color-charcoal);
+}
 .product__actions { display: flex; gap: 24px; flex-wrap: wrap; }
 
 /* ---------------- stack (3 steps) ---------------- */

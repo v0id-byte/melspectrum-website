@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import { useT } from '../i18n';
 import { useTextReveal, useReveal } from '../lib/motion/hooks';
 import { BracketLink, Eyebrow } from './ui';
+import { tuning, staging, montage } from '../data/metrics';
 
-function Product({ eyebrow, site, tag, name, lead, specs, href }) {
+function Product({ eyebrow, site, tag, name, lead, specs, href, note }) {
   const { t } = useT();
   return (
     <article className="product">
@@ -32,6 +33,7 @@ function Product({ eyebrow, site, tag, name, lead, specs, href }) {
             </div>
           ))}
         </div>
+        {note ? <p className="specs__note">{note}</p> : null}
       </div>
     </article>
   );
@@ -51,15 +53,16 @@ export default function Products() {
         tag={t('硬件 · HARDWARE', 'HARDWARE')}
         name="Piano Tuner"
         lead={t(
-          '把一位调律师的耳朵，装进口袋。BLE 5.0 麦克风配实时 Railsback 曲线拟合，让每一根琴弦回到它该在的位置。',
-          "A professional tuner's ear, in your pocket. A BLE 5.0 mic with real-time Railsback curve fitting brings every string back to where it belongs.",
+          '把一位调律师的耳朵，装进口袋。实时 Railsback 曲线拟合，让每一根琴弦回到它该在的位置。',
+          "A professional tuner's ear, in your pocket. Real-time Railsback curve fitting brings every string back to where it belongs.",
         )}
         specs={[
-          { k: t('调律精度 / PITCH ACCURACY', 'PITCH ACCURACY'), v: '±2 ¢' },
-          { k: t('全音域 / FULL KEY RANGE', 'FULL KEY RANGE'), v: '88' },
-          { k: t('无线 / WIRELESS · OTA', 'WIRELESS · OTA'), v: 'BLE 5.0' },
+          { k: t('调律精度 / PITCH ACCURACY', 'PITCH ACCURACY'), v: `±${tuning.accuracyCents} ¢*` },
+          { k: t('断弦防护 / STRING PROTECTION', 'STRING PROTECTION'), v: 'StringGuard' },
+          { k: t('固件升级 / FIRMWARE OTA', 'FIRMWARE OTA'), v: t('双向回滚', 'Two-way rollback') },
           { k: t('状态 / STATUS', 'STATUS'), v: t('硬件研发中', 'In development') },
         ]}
+        note={`* ${t(tuning.noteZh, tuning.noteEn)}`}
       />
       <hr className="rule" />
       <Product
@@ -69,14 +72,16 @@ export default function Products() {
         tag={t('算法 · ALGORITHM', 'ALGORITHM')}
         name="Somnil"
         lead={t(
-          '用睡眠里的声音判断你睡到了哪一层；检测到噩梦的迹象时，把你轻轻叫醒。',
-          'It reads your sleep stage from the sounds of the night, and wakes you gently at the first signs of a nightmare.',
+          '额头上的四路脑电，逐 30 秒判断你睡到了哪一层；检测到噩梦的迹象时，把你轻轻叫醒。',
+          'Four channels of EEG across the forehead read which stage of sleep you are in, thirty seconds at a time — and wake you gently at the first signs of a nightmare.',
         )}
         specs={[
-          { k: t('分期精度 / STAGING ACC', 'STAGING ACC'), v: '~80%' },
-          { k: t('信号链路延迟 / LATENCY', 'SIGNAL-CHAIN LATENCY'), v: '<50 ms' },
-          { k: t('平台 / PLATFORMS', 'PLATFORMS'), v: 'iOS' },
+          { k: t('导联 / MONTAGE', 'MONTAGE'), v: montage.join(' · ') },
+          { k: t('睡眠分期 / SLEEP-EDF', 'SLEEP-EDF'), v: `${staging.sets[0].acc} · κ ${staging.sets[0].kappa}†` },
+          { k: t('病理人群 / CAP', 'CAP'), v: `${staging.sets[1].acc} · κ ${staging.sets[1].kappa}†` },
+          { k: t('推理位置 / INFERENCE', 'INFERENCE'), v: t('端侧 CoreML', 'On-device CoreML') },
         ]}
+        note={`† ${t(staging.noteZh, staging.noteEn)}`}
       />
     </section>
   );

@@ -3,14 +3,16 @@ import { useT } from '../i18n';
 import { useMarquee } from '../lib/motion/hooks';
 
 const ITEMS = [
-  '±2 ¢ TUNING ACCURACY',
-  'MEL · STFT · CWT',
-  'BLE 5.0 · OTA',
+  'LAB-TESTED ±2 ¢',
   'RAILSBACK CURVE',
-  '~80% STAGING ACC',
+  'STRINGGUARD',
+  'TWO-WAY OTA ROLLBACK',
+  '4-CH FRONTAL EEG',
+  'RESNET1D + HMM',
+  'κ 0.715 · SLEEP-EDF',
+  'ON-DEVICE COREML',
   'AS218883',
   '2a13:c8c3:e803::/48',
-  '< 50 ms SIGNAL CHAIN',
 ];
 
 export default function Marquee() {

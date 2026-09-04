@@ -21,6 +21,15 @@ const FORBIDDEN_STRINGS = [
   { pattern: /[<＜]\s*10\s*ms/, why: '<10 ms（与全站 <50 ms 自相矛盾）' },
   { pattern: /Qin Liuhaoran/, why: '旧拼音署名（应为 Soren Qin）' },
   { pattern: /sub-second failover|亚秒级(故障)?切换/, why: 'BFD 检测 ≠ 端到端收敛，属过度声明' },
+  // 2026-09-04 全站定量宣称普查撤下的。理由逐条见 app/src/data/metrics.js 顶部注释。
+  { pattern: /SNR\s*[>＞]\s*70/i, why: 'SNR > 70 dB（全库零匹配；命中的 70 dB 都是声压级）' },
+  { pattern: /1\.8\s*M\s*param/i, why: '1.8 M params（库里参数量都在十万量级）' },
+  { pattern: /[<＜]\s*50\s*ms|under 50\s*ms/i, why: '<50 ms 端到端（唯一一份拆解算出来 ≈70 ms）' },
+  { pattern: /[<＜]\s*1\s*[μµu]V/i, why: 'NOISE < 1 μV（实测好通道 3.1–4.0 µVrms，无一路低于 1 µV）' },
+  { pattern: /BAND\s*500\s*Hz/i, why: 'BAND 500 Hz（部署标称 250 Hz、实测 222.4 Hz）' },
+  { pattern: /\bCWT\b/, why: 'CWT（自家代码明确否决：Morlet CWT 等价于 constant-Q 滤波器组）' },
+  { pattern: /BLE\s*5\.0/i, why: 'BLE 5.0（通用规格，不构成技术底蕴；且红线禁具体芯片/协议型号当卖点）' },
+  { pattern: /~\s*80\s*%|约\s*80\s*%/, why: '~80% 分期精度（治理规则要求 acc 与 κ 同时给，并标明公开基准非真机）' },
 ];
 
 function walk(dir, root, acc = []) {

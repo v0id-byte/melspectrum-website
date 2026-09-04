@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>MelSpectrum · 融谱智能科技 — 让机器听懂声音</title>
-<meta name="description" content="融谱智能科技 MelSpectrum：做声学硬件，也做跑在硬件上的算法。Piano Tuner 调律精度 ±2 音分；Somnil 睡眠分期精度 ~80%（公开临床基准）。让机器听懂声音。" />
+<meta name="description" content="融谱智能科技 MelSpectrum：做声学硬件，也做跑在硬件上的算法。Piano Tuner 实验室测试调律精度 ±2 音分；Somnil 用额部四通道脑电做睡眠分期，公开临床基准 Sleep-EDF 准确率 0.785、κ 0.715。让机器听懂声音。" />
 
 <link rel="canonical" href="https://melspectrum.com/" />
 <link rel="alternate" hreflang="zh-CN" href="https://melspectrum.com/" />
@@ -20,7 +20,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="MelSpectrum 融谱智能科技" />
 <meta property="og:title" content="MelSpectrum · 融谱智能科技 — 让机器听懂声音" />
-<meta property="og:description" content="融谱智能科技 MelSpectrum：做声学硬件，也做跑在硬件上的算法。Piano Tuner 调律精度 ±2 音分；Somnil 睡眠分期精度 ~80%（公开临床基准）。让机器听懂声音。" />
+<meta property="og:description" content="融谱智能科技 MelSpectrum：做声学硬件，也做跑在硬件上的算法。Piano Tuner 实验室测试调律精度 ±2 音分；Somnil 用额部四通道脑电做睡眠分期，公开临床基准 Sleep-EDF 准确率 0.785、κ 0.715。让机器听懂声音。" />
 <meta property="og:url" content="https://melspectrum.com/" />
 <meta property="og:image" content="https://melspectrum.com/images/og-image.png" />
 <meta property="og:image:width" content="1200" />
@@ -31,7 +31,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="MelSpectrum · 融谱智能科技 — 让机器听懂声音" />
-<meta name="twitter:description" content="做声学硬件，也做跑在硬件上的算法。Piano Tuner 调律精度 ±2 音分；Somnil 睡眠分期精度 ~80%（公开临床基准）。" />
+<meta name="twitter:description" content="做声学硬件，也做跑在硬件上的算法。Piano Tuner 实验室测试调律精度 ±2 音分；Somnil 用额部四通道脑电做睡眠分期，公开临床基准 Sleep-EDF 准确率 0.785、κ 0.715。" />
 <meta name="twitter:image" content="https://melspectrum.com/images/og-image.png" />
 
 <script type="application/ld+json">
@@ -69,7 +69,7 @@
       "@type": "Product",
       "@id": "https://melspectrum.com/#piano-tuner",
       "name": "Piano Tuner",
-      "description": "声学硬件与端侧算法结合的自动钢琴调律工具：BLE 5.0 麦克风 + 实时 Railsback 曲线拟合，覆盖 88 键全音域。",
+      "description": "声学硬件与端侧算法结合的自动钢琴调律工具：实时 Railsback 曲线拟合，实验室测试调律精度 ±2 音分；以断弦防护为第一优先级设计，固件支持双向 OTA 回滚。",
       "url": "https://pianotuner.top",
       "brand": { "@id": "https://melspectrum.com/#organization" },
       "manufacturer": { "@id": "https://melspectrum.com/#organization" }
@@ -78,7 +78,7 @@
       "@type": "Product",
       "@id": "https://melspectrum.com/#somnil",
       "name": "Somnil",
-      "description": "基于睡眠声学信号的实时分期与梦魇检测，在监测到睡眠相关事件时轻柔唤醒。",
+      "description": "基于额部四通道脑电（Fp1 / Fp2 / F7 / F8）的实时睡眠分期与梦魇检测，模型在端侧以 CoreML 推理，在监测到睡眠相关事件时轻柔唤醒。",
       "url": "https://somnil.top",
       "brand": { "@id": "https://melspectrum.com/#organization" },
       "manufacturer": { "@id": "https://melspectrum.com/#organization" }
@@ -88,7 +88,7 @@
       "@id": "https://melspectrum.com/#website",
       "url": "https://melspectrum.com/",
       "name": "MelSpectrum · 融谱智能科技",
-      "description": "做声学硬件，也做跑在硬件上的算法。Piano Tuner 调律精度 ±2 音分；Somnil 睡眠分期精度 ~80%（公开临床基准）。",
+      "description": "做声学硬件，也做跑在硬件上的算法。Piano Tuner 实验室测试调律精度 ±2 音分；Somnil 用额部四通道脑电做睡眠分期，公开临床基准 Sleep-EDF 准确率 0.785、κ 0.715。",
       "inLanguage": ["zh-CN", "en"],
       "publisher": { "@id": "https://melspectrum.com/#organization" }
     }
@@ -110,7 +110,7 @@
     if (lang !== 'en') return;
     var EN_URL = 'https://melspectrum.com/?lang=en';
     var title = 'MelSpectrum — Teach Machines to Listen | Acoustic AI';
-    var desc = 'MelSpectrum builds acoustic hardware and the algorithms that run on it. Piano Tuner: ±2-cent tuning accuracy. Somnil: ~80% staging accuracy on public clinical benchmarks.';
+    var desc = 'MelSpectrum builds acoustic hardware and the algorithms that run on it. Piano Tuner: lab-tested ±2-cent tuning accuracy. Somnil: four-channel frontal EEG sleep staging, 0.785 accuracy and κ 0.715 on the Sleep-EDF public clinical benchmark.';
     document.documentElement.lang = 'en';
     document.title = title;
     var set = function (sel, attr, val) {
@@ -137,16 +137,16 @@
     <h1 style="font-weight:300">MelSpectrum · 融谱智能科技 — 让机器听懂声音</h1>
     <p>一半是声学，一半是算法。我们把振动，变成理解。We turn vibrations into understanding.</p>
     <h2 style="font-weight:300">Piano Tuner</h2>
-    <p>把一位调律师的耳朵，装进口袋。BLE 5.0 麦克风配实时 Railsback 曲线拟合，调律精度 ±2 音分，覆盖 88 键全音域。硬件研发中，iOS App 已在 TestFlight。产品站：<a href="https://pianotuner.top">pianotuner.top</a></p>
+    <p>把一位调律师的耳朵，装进口袋。实时 Railsback 曲线拟合，实验室测试调律精度 ±2 音分（最终性能以量产版本验证为准）。以断弦防护为第一优先级设计，固件支持双向 OTA 回滚。硬件研发中，iOS App 已在 TestFlight。产品站：<a href="https://pianotuner.top">pianotuner.top</a></p>
     <h2 style="font-weight:300">Somnil</h2>
-    <p>在监测到睡眠相关事件时，把你轻轻唤醒。基于睡眠声学信号的实时分期与梦魇检测，睡眠分期精度约 80%（公开临床基准），端到端信号链路延迟 &lt;50 ms。产品站：<a href="https://somnil.top">somnil.top</a></p>
+    <p>在监测到睡眠相关事件时，把你轻轻唤醒。用额头四通道脑电（Fp1 / Fp2 / F7 / F8）做实时睡眠分期与梦魇检测，模型在端侧以 CoreML 推理。公开临床基准被试级留出：Sleep-EDF 准确率 0.785 / κ 0.715，CAP 七类病理人群 0.761 / κ 0.683；非真机验证。产品站：<a href="https://somnil.top">somnil.top</a></p>
     <h2 style="font-weight:300">Network · AS218883</h2>
     <p>我们自己运营自治域 AS218883，对外宣告 IPv6 前缀 2a13:c8c3:e803::/48，从三个节点（AMS / SLC / LAX）向外通告，节点之间用 BFD 做故障检测。可在 <a href="https://bgp.he.net/AS218883">bgp.he.net</a>、<a href="https://www.peeringdb.com/asn/218883">PeeringDB</a>、<a href="https://stat.ripe.net/AS218883">RIPEstat</a> 独立核验。</p>
     <h2 style="font-weight:300">Contact</h2>
     <p><a href="mailto:contact@melspectrum.com">contact@melspectrum.com</a></p>
     <p>© 2026 融谱智能科技（深圳）有限公司</p>
     <hr />
-    <p><strong>English</strong> — MelSpectrum teaches machines to listen — half acoustics, half algorithms. Piano Tuner brings ±2-cent tuning accuracy to all 88 keys via a BLE 5.0 microphone and real-time Railsback curve fitting. Somnil performs real-time sleep staging and nightmare detection from acoustic signals (~80% staging accuracy on public clinical datasets, end-to-end signal-chain latency under 50 ms). We operate our own autonomous system, AS218883, announcing 2a13:c8c3:e803::/48.</p>
+    <p><strong>English</strong> — MelSpectrum teaches machines to listen — half acoustics, half algorithms. Piano Tuner reaches a lab-tested ±2-cent tuning accuracy through real-time Railsback curve fitting, and is designed with string protection as its first priority; final performance is whatever the production version verifies. Somnil performs real-time sleep staging and nightmare detection from four channels of frontal EEG (Fp1 / Fp2 / F7 / F8), inferred on-device with CoreML — 0.785 accuracy and κ 0.715 on Sleep-EDF, 0.761 and κ 0.683 on CAP, both subject-wise held out on public clinical benchmarks and not validated on our own hardware. We operate our own autonomous system, AS218883, announcing 2a13:c8c3:e803::/48.</p>
   </div>
 </noscript>
 <script type="module" src="/src/main.jsx"></script>
