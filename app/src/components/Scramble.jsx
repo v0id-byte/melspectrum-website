@@ -27,12 +27,19 @@ export default function Scramble({ children, tag: Tag = 'span', className = '' }
     const el = ref.current;
     if (!el || prefersReduced()) return undefined;
 
+    // 只持有自己那一条补间。
+    // ⚠️ 这里**不能**写 gsap.killTweensOf(el) —— 那会连别的 owner 的补间一起杀掉。
+    // 实际踩过：AS218883 是唯一同时挂 <Scramble> 与 anim-up--metric 的元素，
+    // 进场时乱码把还在跑的淡入一并杀死，opacity 停在 0.18，白字变灰。
+    // 乱码只拥有 scrambleText，淡入只拥有 opacity/transform，各管各的。
+    // 重入守卫用 onComplete 翻转的布尔量。
+    let tween = null;
     let running = false;
     const run = () => {
       if (running) return;
       running = true;
-      gsap.killTweensOf(el);
-      gsap.to(el, {
+      if (tween) tween.kill();
+      tween = gsap.to(el, {
         duration: 1.75,
         ease: 'power4.inOut',
         scrambleText: { text: '{original}', chars: 'upperCase', revealDelay: 0.15, speed: 1.25 },
@@ -60,7 +67,7 @@ export default function Scramble({ children, tag: Tag = 'span', className = '' }
     return () => {
       if (io) io.disconnect();
       if (hoverable) el.removeEventListener('mouseenter', run);
-      gsap.killTweensOf(el);
+      if (tween) tween.kill();
     };
   }, [children]);
 
