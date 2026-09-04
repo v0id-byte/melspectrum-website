@@ -228,6 +228,21 @@ export default function Globe({ className = '' }) {
     io.observe(canvas);
 
     const onResize = () => { resize(); draw(0); if (!isStatic()) sync(); };
+
+    // 容器尺寸的真正来源：加载页卸载、字体落定、布局收敛都会改变它，
+    // 而这些都不触发 window.resize。
+    let lastW = 0;
+    let lastH = 0;
+    const ro = new ResizeObserver((entries) => {
+      const r = entries[0]?.contentRect;
+      if (!r) return;
+      if (Math.abs(r.width - lastW) < 1 && Math.abs(r.height - lastH) < 1) return;
+      lastW = r.width; lastH = r.height;
+      resize();
+      draw(0);
+      if (!isStatic()) sync();
+    });
+    ro.observe(canvas);
     // 媒体查询变化要能动态生效，不能只在挂载时读一次
     const onMedia = () => { stop(); resize(); draw(0); sync(); };
     window.addEventListener('resize', onResize);
@@ -237,6 +252,7 @@ export default function Globe({ className = '' }) {
 
     return () => {
       stop();
+      ro.disconnect();
       io.disconnect();
       window.removeEventListener('resize', onResize);
       document.removeEventListener('visibilitychange', sync);
