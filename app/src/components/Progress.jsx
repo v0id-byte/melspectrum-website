@@ -34,7 +34,7 @@ export default function Progress({ theme }) {
   return (
     <div className="progress" aria-hidden="true">
       <div className="progress__label t-ui" ref={labelRef} style={{ color }}>
-        ⬡ AS{N.asn} · {N.originatedPrefixes[0]}
+        ⬡ AS{N.asn} · {N.originatedPrefixes[0].prefix}
       </div>
       <div className="progress__bar" ref={barRef} style={{ background: color }} />
     </div>

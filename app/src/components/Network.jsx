@@ -59,7 +59,7 @@ export default function Network() {
               {/* RIR 与起始日期随前缀一起走：两条前缀来源不同，不可合并成一个标签 */}
               {N.originatedPrefixes.map((p) => (
                 <div key={p.prefix}>
-                  <Scramble tag="span">{p.prefix.toUpperCase()}</Scramble>
+                  <Scramble tag="span">{p.prefix.toUpperCase()}</Scramble>{' '}
                   <span className="t-ui" style={{ color: 'var(--color-ash)', marginLeft: 10 }}>
                     {p.rir} · {t(`${p.since} 起`, `SINCE ${p.since}`)}
                   </span>
