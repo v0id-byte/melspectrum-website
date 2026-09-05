@@ -44,8 +44,8 @@ export const networkSnapshot = {
     prefix: '2a13:c8c3:e803::/48',
     source: 'RIPE RIS',
     observedAt: '2026-09-04',
-    visible: 320,
-    total: 320,
+    visible: 321,
+    total: 321,
     firstSeen: '2026-08-27',
   },
 
