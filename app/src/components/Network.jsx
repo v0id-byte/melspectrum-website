@@ -38,8 +38,8 @@ export default function Network() {
             'The path our products travel is one we run ourselves.',
           )}
           sub={t(
-            '我们自己运营自治域 AS218883，对外宣告一条 IPv6 前缀，从三个节点向外通告，节点之间用 BFD 做故障检测。下面每一个数字，你都可以去第三方公共数据库自己查。',
-            'We run our own autonomous system, AS218883. It originates a single IPv6 prefix, announced from three locations, with BFD between them for failure detection. Every figure below is one you can check for yourself, on third-party public databases.',
+            '我们自己运营自治域 AS218883，对外宣告两条 IPv6 前缀，从三个节点向外通告，节点之间用 BFD 做故障检测。v6.pianotuner.top 就直接跑在我们自己的 IPv6 地址上。下面每一个数字，你都可以去第三方公共数据库自己查。',
+            'We run our own autonomous system, AS218883. It originates two IPv6 prefixes, announced from three locations, with BFD between them for failure detection. v6.pianotuner.top is served directly from an address inside our own prefix. Every figure below is one you can check for yourself, on third-party public databases.',
           )}
         />
 
@@ -56,8 +56,14 @@ export default function Network() {
               {String(N.originatedPrefixes.length).padStart(2, '0')}
             </span>
             <div className="net__prefix" style={{ marginTop: 8 }}>
+              {/* RIR 与起始日期随前缀一起走：两条前缀来源不同，不可合并成一个标签 */}
               {N.originatedPrefixes.map((p) => (
-                <Scramble tag="div" key={p}>{p.toUpperCase()}</Scramble>
+                <div key={p.prefix}>
+                  <Scramble tag="span">{p.prefix.toUpperCase()}</Scramble>
+                  <span className="t-ui" style={{ color: 'var(--color-ash)', marginLeft: 10 }}>
+                    {p.rir} · {t(`${p.since} 起`, `SINCE ${p.since}`)}
+                  </span>
+                </div>
               ))}
             </div>
           </Metric>
@@ -65,7 +71,7 @@ export default function Network() {
           <Metric
             label="RIS VISIBILITY"
             /* snapshot, not a permanent property — provenance travels with it */
-            observed={`${N.ris.visible} / ${N.ris.total} FULL PEERS · OBSERVED ${N.ris.observedAt} · ${N.ris.source}`}
+            observed={`${N.ris.visible} / ${N.ris.total} FULL PEERS · ${N.ris.prefix.toUpperCase()} · OBSERVED ${N.ris.observedAt} · ${N.ris.source}`}
           >
             <span className="t-metric anim-up--metric">
               <span data-countup={pct} data-countup-suffix="%">{pct}%</span>
@@ -90,6 +96,9 @@ export default function Network() {
         </div>
 
         <div className="net__links">
+          <BracketLink href={`https://${N.directService.host}/`} external highlight>
+            {N.directService.host}
+          </BracketLink>
           {networkLinks.map((l) => (
             <BracketLink key={l.label} href={l.href} external highlight>{l.label}</BracketLink>
           ))}
