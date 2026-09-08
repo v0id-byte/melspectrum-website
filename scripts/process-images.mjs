@@ -31,7 +31,8 @@ if (existsSync(heroSrc)) {
 }
 
 // --- favicons / touch icon / og image pass through unchanged ---
-for (const f of ['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'logo.png', 'og-image.png']) {
+for (const f of ['favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'logo.png', 'og-image.png',
+  'favicon-brand-202609.svg', 'favicon-16-202609.png', 'favicon-32-202609.png', 'apple-touch-icon-202609.png', 'logo-202609.png', 'og-brand-202609.png']) {
   const s = join(SRC, f);
   if (existsSync(s)) { copyFileSync(s, join(OUT, f)); console.log(`  ${f}  ${size(join(OUT, f))}`); }
 }

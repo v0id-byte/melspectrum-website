@@ -109,7 +109,8 @@ export default function Nav({ theme = 'dark' }) {
       <div className="nav-frame">
         <nav className="nav" data-theme={theme} aria-label={t('主导航', 'Primary')}>
           <a className="nav__brand" href="#top">
-            MelSpectrum
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="nav__mark" width="20" height="20" aria-hidden="true" focusable="false"><g fill="currentColor" color="currentColor"><mask id="ms-m-standard-nav"><rect width="32" height="32" fill="#fff"/><path d="M10.5 10.75 C10.896 10.75 10.83 11.725 11.82 10.75 C12.81 9.775 12.546 7.841 13.8 7.5 C15.054 7.159 14.68 9.613 16 9.613 C17.32 9.613 16.946 7.159 18.2 7.5 C19.454 7.841 19.19 9.775 20.18 10.75 C21.17 11.725 21.104 10.75 21.5 10.75" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></mask><g mask="url(#ms-m-standard-nav)"><path d="M6 13 a10 10 0 0 1 20 0 Z"/><rect x="6.072" y="13" width="19.855" height="2.4"/><rect x="7.008" y="16.5" width="17.984" height="1.75"/><rect x="9.034" y="19.55" width="13.931" height="1.25"/><rect x="13.778" y="22.3" width="4.444" height="0.9"/></g></g></svg>
+            <span className="nav__name">MelSpectrum</span>
             <span aria-hidden="true">融谱智能</span>
           </a>
           <div className="nav__spacer" />

@@ -71,6 +71,7 @@ export function verifyBuild(dir, { writeManifest = true } = {}) {
   for (const f of files) {
     const rel = relative(base, f);
     if (extname(rel) === '.ttf') fail.push(`原始字体泄漏: ${rel}`);
+    if (/(^|\/)(brand\.json|generate\.py|manifest\.json)$/.test(rel) || /source-assets/.test(rel) || /\.(otf|py)$/.test(extname(rel))) fail.push(`品牌源文件泄漏: ${rel}`);
     if (/\.source\./.test(rel)) fail.push(`原始图片泄漏: ${rel}`);
   }
 

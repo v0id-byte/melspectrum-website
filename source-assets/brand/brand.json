@@ -1,0 +1,44 @@
+{
+  "brandVersion": "2026.09-v1",
+  "canonical": {
+    "company": {"name": "MelSpectrum", "zh": "融谱智能", "legal_zh": "融谱智能科技（深圳）有限公司", "slogan_zh": "让机器听懂声音", "slogan_en": "Teach machines to listen"},
+    "pianotuner": {"code": "Piano Tuner", "wordmark": "PianoTuner", "app_display_name": "PianoTuner"},
+    "somnil": {"name": "Somnil", "wordmark_display": "SOMNIL"}
+  },
+  "colors": {
+    "teal": "#14B8A6", "tealDark": "#2DD4BF", "black": "#141414", "white": "#FAFAFA", "platinum": "#ECECEC",
+    "ash": "#8D8D8D", "silver": "#B3B3B3", "hairline": "#D9D9D9",
+    "somnil": {"oklch": "oklch(0.68 0.12 290)", "srgb": "#988BDD"}
+  },
+  "marks": {
+    "company": "dome (sound) with an inner negative-space M, dissolving into five staff stripes (spectrum / 五线谱 / 融)",
+    "pianotuner": "seven curved arms (seven white keys of an octave) radiating from a struck centre — a pinwheel of sound",
+    "somnil": "crescent"
+  },
+  "masters": {
+    "display":  {"viewBox": 64,  "use": ">=64 CSS px: OG, JSON-LD logo 512, print"},
+    "standard": {"viewBox": 32,  "use": "24-63 px: nav 18-24, favicon 32"},
+    "micro":    {"viewBox": 16,  "use": "<=23 px: favicon 16/24; company micro has no inner M"},
+    "appicon":  {"viewBox": 100, "use": "iOS single-size 1024 optical master (system derives every Home/Settings/Spotlight size) and apple-touch-icon 180"}
+  },
+  "surfaceToMaster": {
+    "favicon-16": "micro", "favicon-32": "standard", "favicon-svg": "standard", "nav-18": "standard", "nav-20": "standard",
+    "apple-touch-icon-180": "appicon", "ios-appicon-1024": "appicon", "og-1200x630": "display", "jsonld-logo-512": "display"
+  },
+  "appIcon": {
+    "treatment": "T1: teal #14B8A6 background, white #FAFAFA mark, coverage 0.56 of canvas",
+    "default": "opaque RGB", "dark": "transparent background, mark #2DD4BF", "tinted": "grayscale mark #E6E6E6 on transparent",
+    "rule": "source artwork stays square; never bake the system mask into the raster"
+  },
+  "wordmark": {
+    "latin": {"font": "Inter", "version": "4.001;git-66647c0bb", "instances": {"light": {"opsz": 32, "wght": 300}, "medium": {"opsz": 32, "wght": 500}, "regular": {"opsz": 32, "wght": 400}}, "tracking_em": -0.02,
+              "MelSpectrum": "Mel=light + Spectrum=medium", "PianoTuner": "Piano=light + Tuner=medium", "Somnil": "regular"},
+    "cjk": {"font": "Noto Sans SC", "version": "2.004-H2", "instance": {"wght": 400}, "tracking_em": 0.04, "size_ratio_to_latin": 0.66, "color": "ash #8D8D8D (light) / silver #B3B3B3 (dark)"}
+  },
+  "rules": [
+    "Pick the master by the final perceived size on the surface, never by the output raster size.",
+    "Never scale the display master down to favicon size; use micro/standard.",
+    "Marks are single-colour: teal on light, tealDark on dark, white on brand-colour ground. Somnil uses its own violet.",
+    "No gradients, no shadows, no glow; the iOS Clear/Tinted appearances are produced by the system from the same artwork."
+  ]
+}

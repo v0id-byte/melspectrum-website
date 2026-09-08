@@ -1,0 +1,566 @@
+{
+ "brandVersion": "2026.09-v1",
+ "generatedAt": "2026-09-08T21:56:32",
+ "sourceParentCommit": "893ad96d46ba9f33b5e0209c5cb0d3b47d223051",
+ "sourceTreeDigest": "ed70944df4488acec32412ab3553290dd5fca3dde142475502dc1db63450b05f",
+ "generator": {
+  "chrome": "Google Chrome 152.0.7977.76",
+  "python": "3.14.6",
+  "pillow": "12.1.1",
+  "fonttools": "4.62.1",
+  "os": "macOS-27.0-arm64-arm-64bit-Mach-O"
+ },
+ "fontInstances": {
+  "latin": {
+   "font": "Inter",
+   "version": "4.001;git-66647c0bb",
+   "instances": {
+    "light": {
+     "opsz": 32,
+     "wght": 300
+    },
+    "medium": {
+     "opsz": 32,
+     "wght": 500
+    },
+    "regular": {
+     "opsz": 32,
+     "wght": 400
+    }
+   },
+   "tracking_em": -0.02,
+   "MelSpectrum": "Mel=light + Spectrum=medium",
+   "PianoTuner": "Piano=light + Tuner=medium",
+   "Somnil": "regular"
+  },
+  "cjk": {
+   "font": "Noto Sans SC",
+   "version": "2.004-H2",
+   "instance": {
+    "wght": 400
+   },
+   "tracking_em": 0.04,
+   "size_ratio_to_latin": 0.66,
+   "color": "ash #8D8D8D (light) / silver #B3B3B3 (dark)"
+  }
+ },
+ "inputHashes": {
+  "brand.json": "444b67db9af00fa0c079e862629835ea8ada17a66e9a7d0feeb65dfb3e7c113c",
+  "generate.py": "4f7611a5391b9ed7ab495440ca8b01f1cceb390ca59493b1a39175559ca13a09",
+  "fonts/Inter.ttf": "0be2399ea925f1f83ff974764761da9860ec50742ed29a5d4c1ffd0c5c7ac3a8",
+  "fonts/NotoSansSC.ttf": "e80613a35583f59b46dbf6cc2eb640f3db0bb0f53fa7f6fbaa7b09faf20e5172",
+  "svg/company-appicon.svg": "f23d487c87f6186174277e381b78192642ecaac9612c1ffe300a4c71c7c40f89",
+  "svg/company-display.svg": "7b40b5e321128dd233f43132cfd61cfc43f4d1b55e31837c99a67f4976789888",
+  "svg/company-micro.svg": "5ffd7bf0f25823b9c29b9ce32ec052d6fd0ffacb69272056f4258462d8d71dfc",
+  "svg/company-mono-black.svg": "7cd96777ae0e4ef108b340086fa3cb2ef6f3ee07594b924f1c6b16bda1c32d80",
+  "svg/company-mono-white.svg": "6078a5555d00f3ee4fd17f593ccaa595543f54fd3c1ddbc61dbe5d3395a387cc",
+  "svg/company-standard.svg": "d82589662b0cac1fba89a5625e7737f00aa25fbd22f36f3c35f5374ec2928ca3",
+  "svg/lockup-company-dark.svg": "409ba5c5452e70cbb6186ecaed86aff55237287ea12f14d2ac19eed21726356d",
+  "svg/lockup-company-en-light.svg": "2e828e3b408ca99538f74457d2f0461c2cfb70359f6c029262cbb73647a00297",
+  "svg/lockup-company-light.svg": "f5eae0b067916ca1a56c95679d0635accc69140c89c2a5b3067a2871473fd916",
+  "svg/lockup-pianotuner-dark.svg": "c0727da1aa2633a27dd455462e38b7bebfc24e4fa5cb11b1750d470cbd294c91",
+  "svg/lockup-pianotuner-light.svg": "2e0541c055bb768913ecf9181c112ef8400b09af74129d193bf8768f03195968",
+  "svg/lockup-somnil-dark.svg": "78acfd684050da191f8a243e0c7ab6bf970969603b6a95d50e5f7b50377f15a2",
+  "svg/lockup-somnil-light.svg": "cae847b66de05a1ea1437d80f8213a5c0284fae9324a8cd56a07a548826395aa",
+  "svg/pianotuner-appicon.svg": "3443ea3b55e9185716cab32fb864699b37f2874041052a0bf5a357411944484d",
+  "svg/pianotuner-display.svg": "6845157a9cbed45d3a95ae3fc4d936d7cf2975e06d866b14e0c3dc88a49d6589",
+  "svg/pianotuner-micro.svg": "98ca35cd545f78a36c91853a4d03df3ec5e8d651011f5e208405784885c89a40",
+  "svg/pianotuner-mono-black.svg": "daee71b6cb50613ac23e499ae5058b907fb736c2a8e1757db7fd31c0f07f1167",
+  "svg/pianotuner-mono-white.svg": "d1b43c9cfa7c66a66af5810b16a2a133d13caf3c693ce938cd53661ee8ef3e19",
+  "svg/pianotuner-standard.svg": "5ba19536835c499f1806cc2f310f7e9df7e4c66ac9044168f2caa1b625e9bf9b",
+  "svg/somnil-appicon.svg": "348c92609d5365413eee30f2188ba801f33dffbc50a182f0a6711b101e7852d7",
+  "svg/somnil-display.svg": "563e18df7afb2ea49e7539620b6a6bb747adf84b44b8f3b58f0e3a823eb24973",
+  "svg/somnil-micro.svg": "4cf2fd8a363da02669af8cda3228c98e63ee0acebed693babcf444dce0adbf36",
+  "svg/somnil-mono-black.svg": "4a75c09f320d274592f84f41e3c57bd31ea64cedddff0d53b5537411756bc294",
+  "svg/somnil-mono-white.svg": "5f0441355429462b9c552b4bb4e8a54edeb68bc86b5e560353f8d1c0107c139c",
+  "svg/somnil-standard.svg": "3c4e7cecd0c5baa0d8886c2d68ee00c140b7caa9dd842c8c9772671409636317"
+ },
+ "artifacts": [
+  {
+   "path": "svg/company-display.svg",
+   "sha256": "7b40b5e321128dd233f43132cfd61cfc43f4d1b55e31837c99a67f4976789888",
+   "bytes": 850,
+   "artworkMaster": "display",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/company-standard.svg",
+   "sha256": "d82589662b0cac1fba89a5625e7737f00aa25fbd22f36f3c35f5374ec2928ca3",
+   "bytes": 809,
+   "artworkMaster": "standard",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/company-micro.svg",
+   "sha256": "5ffd7bf0f25823b9c29b9ce32ec052d6fd0ffacb69272056f4258462d8d71dfc",
+   "bytes": 280,
+   "artworkMaster": "micro",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/company-appicon.svg",
+   "sha256": "f23d487c87f6186174277e381b78192642ecaac9612c1ffe300a4c71c7c40f89",
+   "bytes": 935,
+   "artworkMaster": "appicon",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/company-mono-black.svg",
+   "sha256": "7cd96777ae0e4ef108b340086fa3cb2ef6f3ee07594b924f1c6b16bda1c32d80",
+   "bytes": 840,
+   "artworkMaster": "display",
+   "role": "master-mono",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/company-mono-white.svg",
+   "sha256": "6078a5555d00f3ee4fd17f593ccaa595543f54fd3c1ddbc61dbe5d3395a387cc",
+   "bytes": 840,
+   "artworkMaster": "display",
+   "role": "master-mono",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-company-light.svg",
+   "sha256": "f5eae0b067916ca1a56c95679d0635accc69140c89c2a5b3067a2871473fd916",
+   "bytes": 36949,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-company-dark.svg",
+   "sha256": "409ba5c5452e70cbb6186ecaed86aff55237287ea12f14d2ac19eed21726356d",
+   "bytes": 36949,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/pianotuner-display.svg",
+   "sha256": "6845157a9cbed45d3a95ae3fc4d936d7cf2975e06d866b14e0c3dc88a49d6589",
+   "bytes": 556,
+   "artworkMaster": "display",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/pianotuner-standard.svg",
+   "sha256": "5ba19536835c499f1806cc2f310f7e9df7e4c66ac9044168f2caa1b625e9bf9b",
+   "bytes": 551,
+   "artworkMaster": "standard",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/pianotuner-micro.svg",
+   "sha256": "98ca35cd545f78a36c91853a4d03df3ec5e8d651011f5e208405784885c89a40",
+   "bytes": 535,
+   "artworkMaster": "micro",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/pianotuner-appicon.svg",
+   "sha256": "3443ea3b55e9185716cab32fb864699b37f2874041052a0bf5a357411944484d",
+   "bytes": 568,
+   "artworkMaster": "appicon",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/pianotuner-mono-black.svg",
+   "sha256": "daee71b6cb50613ac23e499ae5058b907fb736c2a8e1757db7fd31c0f07f1167",
+   "bytes": 546,
+   "artworkMaster": "display",
+   "role": "master-mono",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/pianotuner-mono-white.svg",
+   "sha256": "d1b43c9cfa7c66a66af5810b16a2a133d13caf3c693ce938cd53661ee8ef3e19",
+   "bytes": 546,
+   "artworkMaster": "display",
+   "role": "master-mono",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-pianotuner-light.svg",
+   "sha256": "2e0541c055bb768913ecf9181c112ef8400b09af74129d193bf8768f03195968",
+   "bytes": 12930,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-pianotuner-dark.svg",
+   "sha256": "c0727da1aa2633a27dd455462e38b7bebfc24e4fa5cb11b1750d470cbd294c91",
+   "bytes": 12930,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/somnil-display.svg",
+   "sha256": "563e18df7afb2ea49e7539620b6a6bb747adf84b44b8f3b58f0e3a823eb24973",
+   "bytes": 209,
+   "artworkMaster": "display",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/somnil-standard.svg",
+   "sha256": "3c4e7cecd0c5baa0d8886c2d68ee00c140b7caa9dd842c8c9772671409636317",
+   "bytes": 210,
+   "artworkMaster": "standard",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/somnil-micro.svg",
+   "sha256": "4cf2fd8a363da02669af8cda3228c98e63ee0acebed693babcf444dce0adbf36",
+   "bytes": 168,
+   "artworkMaster": "micro",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/somnil-appicon.svg",
+   "sha256": "348c92609d5365413eee30f2188ba801f33dffbc50a182f0a6711b101e7852d7",
+   "bytes": 230,
+   "artworkMaster": "appicon",
+   "role": "master",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/somnil-mono-black.svg",
+   "sha256": "4a75c09f320d274592f84f41e3c57bd31ea64cedddff0d53b5537411756bc294",
+   "bytes": 199,
+   "artworkMaster": "display",
+   "role": "master-mono",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/somnil-mono-white.svg",
+   "sha256": "5f0441355429462b9c552b4bb4e8a54edeb68bc86b5e560353f8d1c0107c139c",
+   "bytes": 199,
+   "artworkMaster": "display",
+   "role": "master-mono",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-somnil-light.svg",
+   "sha256": "cae847b66de05a1ea1437d80f8213a5c0284fae9324a8cd56a07a548826395aa",
+   "bytes": 5839,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-somnil-dark.svg",
+   "sha256": "78acfd684050da191f8a243e0c7ab6bf970969603b6a95d50e5f7b50377f15a2",
+   "bytes": 5839,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "svg/lockup-company-en-light.svg",
+   "sha256": "2e828e3b408ca99538f74457d2f0461c2cfb70359f6c029262cbb73647a00297",
+   "bytes": 18015,
+   "artworkMaster": "standard",
+   "role": "lockup",
+   "target": "canonical"
+  },
+  {
+   "path": "dist/ios/appicon-default-1024.png",
+   "sha256": "8a36080ab52ce4c2c748fa596cb55f25a85fc6ffb70b9a40fb04a5cf402ffe65",
+   "bytes": 30283,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "pianotuner-app:Assets.xcassets/AppIcon.appiconset/icon_1024.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/ios/appicon-dark-1024.png",
+   "sha256": "d10ed8d078b54602cee0a412854a36652297efab9f6f1e91e6469750928fd706",
+   "bytes": 33308,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "pianotuner-app:Assets.xcassets/AppIcon.appiconset/icon_1024 1.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mode": "RGBA"
+  },
+  {
+   "path": "dist/ios/appicon-tinted-1024.png",
+   "sha256": "d7680178380281343a9ccb6610811e5644a12a6d92cefd96f6173359b1ce9e9b",
+   "bytes": 31236,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "pianotuner-app:Assets.xcassets/AppIcon.appiconset/icon_1024 2.png",
+   "size": [
+    1024,
+    1024
+   ],
+   "mode": "RGBA"
+  },
+  {
+   "path": "dist/pianotuner-site/favicon-brand-202609.svg",
+   "sha256": "1e76d6ec1d0d663aebbc9cf776e3f02cdacec4d55b9bc6ef7d1581ac61f1fdb5",
+   "bytes": 630,
+   "artworkMaster": "standard",
+   "role": "canonical",
+   "target": "pianotuner-site:app/public/favicon-brand-202609.svg"
+  },
+  {
+   "path": "dist/pianotuner-site/favicon.svg",
+   "sha256": "1e76d6ec1d0d663aebbc9cf776e3f02cdacec4d55b9bc6ef7d1581ac61f1fdb5",
+   "bytes": 630,
+   "artworkMaster": "standard",
+   "role": "compatibility-alias",
+   "target": "pianotuner-site:app/public/favicon.svg",
+   "source": "favicon-brand-202609.svg"
+  },
+  {
+   "path": "dist/pianotuner-site/apple-touch-icon-202609.png",
+   "sha256": "a8e76d8a28e0119e9dd79d3fc1c3a042bd847892925a6ecb9ce98e7c88acd4df",
+   "bytes": 4555,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "pianotuner-site:app/public/apple-touch-icon-202609.png",
+   "size": [
+    180,
+    180
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/melspectrum-website/favicon-brand-202609.svg",
+   "sha256": "e6deea0d44ebe6b7a6c67d08bb11cc7474e025ff0bbe4a39e8427bda82b29f0b",
+   "bytes": 896,
+   "artworkMaster": "standard",
+   "role": "canonical",
+   "target": "melspectrum-website:app/public/images/favicon-brand-202609.svg"
+  },
+  {
+   "path": "dist/melspectrum-website/favicon-32-202609.png",
+   "sha256": "5578a8370759729b1dfe1575682464a519d990a3a24068233dc7c04fabdcfb7f",
+   "bytes": 756,
+   "artworkMaster": "standard",
+   "role": "canonical",
+   "target": "melspectrum-website:app/public/images/favicon-32-202609.png"
+  },
+  {
+   "path": "dist/melspectrum-website/favicon-16-202609.png",
+   "sha256": "886bf366f6393498785f7c7b2b18366a22221806ad7669cf62a111b29c748baa",
+   "bytes": 283,
+   "artworkMaster": "micro",
+   "role": "canonical",
+   "target": "melspectrum-website:app/public/images/favicon-16-202609.png"
+  },
+  {
+   "path": "dist/melspectrum-website/apple-touch-icon-202609.png",
+   "sha256": "253eabc7039df49e9ad0b3c8bc77af2517d2ad473905d7d42228d56340380ed6",
+   "bytes": 2279,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "melspectrum-website:app/public/images/apple-touch-icon-202609.png",
+   "size": [
+    180,
+    180
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/melspectrum-website/logo-202609.png",
+   "sha256": "c6981a7f8003790013511cdae3df0757d80691b3f93e27815d7edfd55dfa74d1",
+   "bytes": 6511,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "melspectrum-website:app/public/images/logo-202609.png (JSON-LD Organization.logo)",
+   "size": [
+    512,
+    512
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/melspectrum-website/og-brand-202609.png",
+   "sha256": "bac769d45d6c564bfd136b162130e4966a964d67677781e843bf82d2b4af0e98",
+   "bytes": 34657,
+   "artworkMaster": "display",
+   "role": "canonical",
+   "target": "melspectrum-website:app/public/images/og-brand-202609.png",
+   "size": [
+    1200,
+    630
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/somnil-website/favicon-brand-202609.svg",
+   "sha256": "57a3204197f30868fd832c28f3f7794239597ce025a2462071246caaac140453",
+   "bytes": 289,
+   "artworkMaster": "standard",
+   "role": "canonical",
+   "target": "somnil-website:favicon-brand-202609.svg"
+  },
+  {
+   "path": "dist/somnil-website/apple-touch-icon-202609.png",
+   "sha256": "22818c6241cae48b78a5d5c5067d1dd34fd32aefe5f5e9635c41a6c1882628bb",
+   "bytes": 2354,
+   "artworkMaster": "appicon",
+   "role": "canonical",
+   "target": "somnil-website:apple-touch-icon-202609.png",
+   "size": [
+    180,
+    180
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/somnil-website/og-brand-202609.png",
+   "sha256": "48f317c713c84f97482bb38803203116632ce49a14ca41085dbf75457946882a",
+   "bytes": 42412,
+   "artworkMaster": "display",
+   "role": "canonical",
+   "target": "somnil-website:og-brand-202609.png",
+   "size": [
+    1200,
+    630
+   ],
+   "mode": "RGB"
+  },
+  {
+   "path": "dist/package/company-16.png",
+   "sha256": "886bf366f6393498785f7c7b2b18366a22221806ad7669cf62a111b29c748baa",
+   "bytes": 283,
+   "artworkMaster": "micro",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/company-32.png",
+   "sha256": "5578a8370759729b1dfe1575682464a519d990a3a24068233dc7c04fabdcfb7f",
+   "bytes": 756,
+   "artworkMaster": "standard",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/company-64.png",
+   "sha256": "2d054feb2f31302d19250f22e290988ad57bf0232929333df3c976522fd65dba",
+   "bytes": 1309,
+   "artworkMaster": "display",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/company-512.png",
+   "sha256": "85eb9092d894a2e0e50aca0408dc921e7d701e28234a6658d36f48b413a2617c",
+   "bytes": 10059,
+   "artworkMaster": "display",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/pianotuner-16.png",
+   "sha256": "0a2234dd5f84ea06c2dbdb6dd0e71e2cccf6c36ab0d7f5af124561cf2677ddc4",
+   "bytes": 653,
+   "artworkMaster": "micro",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/pianotuner-32.png",
+   "sha256": "357fba8cf828fc3e598d8f1dc863c78b6d3ffdf583fe4bdfb5b3beb7f472dc7d",
+   "bytes": 1408,
+   "artworkMaster": "standard",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/pianotuner-64.png",
+   "sha256": "57dd52ada1c7d296742784429cce272733174603c1895a404a9e864928308910",
+   "bytes": 2943,
+   "artworkMaster": "display",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/pianotuner-512.png",
+   "sha256": "cb6d8616353032e92a60e9f8fd77bdbe50432c68c09251aa8a060809281760be",
+   "bytes": 24408,
+   "artworkMaster": "display",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/somnil-16.png",
+   "sha256": "859d1c6bfa7a7b66818e3844fb5dcd622f5e9f98bd2f2fde1f9d13945f46e6aa",
+   "bytes": 392,
+   "artworkMaster": "micro",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/somnil-32.png",
+   "sha256": "9f19acbc18ff38ac80d4318274e3e55bdd9279b5cc2463a4080f3f2d8fa90795",
+   "bytes": 706,
+   "artworkMaster": "standard",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/somnil-64.png",
+   "sha256": "c95f3962b3864b50bc1b0abdb0cbc222beab6e270b0a76c18c7a39ab416b1a22",
+   "bytes": 1537,
+   "artworkMaster": "display",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/package/somnil-512.png",
+   "sha256": "40c9f4327aea7366ee16b2aae0dad9bbcc249caa8b2cea0d8a03d55427f7a68c",
+   "bytes": 13844,
+   "artworkMaster": "display",
+   "role": "package",
+   "target": "release-package"
+  },
+  {
+   "path": "dist/inline/company-nav.svg",
+   "sha256": "e0422326cd7e6693282129a475c2aee6b7eec5004b44d88d48dbd3b6effc7924",
+   "bytes": 877,
+   "artworkMaster": "standard",
+   "role": "inline-snippet",
+   "target": "nav (inline, currentColor, aria-hidden)"
+  },
+  {
+   "path": "dist/inline/pianotuner-nav.svg",
+   "sha256": "490d3161d42f52257162c2047264593b8329d867593631e7455dea93ea0856fc",
+   "bytes": 611,
+   "artworkMaster": "standard",
+   "role": "inline-snippet",
+   "target": "nav (inline, currentColor, aria-hidden)"
+  },
+  {
+   "path": "dist/inline/somnil-nav.svg",
+   "sha256": "a39817f48c97fc8a3a8fd9576a827b45846b5478c06d0f7d41073e6f0534ac1b",
+   "bytes": 270,
+   "artworkMaster": "standard",
+   "role": "inline-snippet",
+   "target": "nav (inline, currentColor, aria-hidden)"
+  }
+ ]
+}
