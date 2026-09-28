@@ -1,10 +1,15 @@
 # RFC 8805 geofeed for AS218883 (Melspectrum Technology Co., Ltd.) - 2a0e:4001:3000::/40
+# Generated from wg-enroll addressing.yaml; do not edit by hand.
 # prefix,country,region,city,postal
 2a0e:4001:3010::/44,US,,,
-2a0e:4001:3010::/48,US,US-CA,Los Angeles,
-2a0e:4001:3011::/48,US,US-UT,Salt Lake City,
+2a0e:4001:3010:400::/64,US,US-CA,Los Angeles,
+2a0e:4001:3011:ff00::/64,US,US-UT,Salt Lake City,
 2a0e:4001:3020::/44,HK,,Hong Kong,
 2a0e:4001:3030::/44,GB,,,
+2a0e:4001:3031:ff00::/64,GB,GB-ENG,London,
 2a0e:4001:3040::/44,CN,,,
+2a0e:4001:3042:100::/64,CN,CN-GD,Shenzhen,
+2a0e:4001:3048:100::/64,CN,CN-GD,Shenzhen,
+2a0e:4001:3048:200::/64,CN,CN-GD,Shenzhen,
 2a0e:4001:30a0::/44,JP,JP-13,Tokyo,
 2a0e:4001:30b0::/44,SG,,Singapore,
