@@ -67,6 +67,8 @@ export const networkSnapshot = {
 };
 
 export const networkLinks = [
+  { label: 'Status', href: 'https://status.melspectrum.com' },
+  { label: 'Looking Glass', href: 'https://lg.melspectrum.com' },
   { label: 'RIPEstat', href: 'https://stat.ripe.net/AS218883' },
   { label: 'PeeringDB', href: 'https://www.peeringdb.com/asn/218883' },
   { label: 'bgp.tools', href: 'https://bgp.tools/as/218883' },
