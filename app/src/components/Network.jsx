@@ -4,7 +4,6 @@ import { useTextReveal, useReveal } from '../lib/motion/hooks';
 import { networkSnapshot as N, networkLinks } from '../data/network';
 import { SectionHead, BracketLink } from './ui';
 import Scramble from './Scramble';
-import { useCountUp } from '../lib/motion/useCountUp';
 import Globe from './Globe';
 
 function Metric({ label, children, observed }) {
@@ -22,8 +21,6 @@ export default function Network() {
   const root = useRef(null);
   useTextReveal(root, lang);
   useReveal(root, lang);
-  useCountUp(root, lang);
-  const pct = Math.round((N.ris.visible / N.ris.total) * 100);
 
   return (
     <section id="network" className="island-dark net p-custom py-section" data-nav-theme="dark" ref={root}>
@@ -38,8 +35,8 @@ export default function Network() {
             'The path our products travel is one we run ourselves.',
           )}
           sub={t(
-            '我们自己运营自治域 AS218883，对外宣告两条 IPv6 前缀，从三个节点向外通告，节点之间用 BFD 做故障检测。v6.pianotuner.top 就直接跑在我们自己的 IPv6 地址上。下面每一个数字，你都可以去第三方公共数据库自己查。',
-            'We run our own autonomous system, AS218883. It originates two IPv6 prefixes, announced from three locations, with BFD between them for failure detection. v6.pianotuner.top is served directly from an address inside our own prefix. Every figure below is one you can check for yourself, on third-party public databases.',
+            `我们运营自治域 AS${N.asn}，主地址块为 ${N.primaryPrefix}，路由节点覆盖洛杉矶、盐湖城、香港、伦敦和圣路易斯。以下是截至 ${N.inventoryAsOf} 的运维清单快照；实时状态请查看 Status 和 Looking Glass，公共路由记录可在第三方数据库核对。`,
+            `We operate AS${N.asn}, with primary address block ${N.primaryPrefix} and routing locations in Los Angeles, Salt Lake City, Hong Kong, London and St. Louis. This is an operator inventory snapshot as of ${N.inventoryAsOf}. See Status and Looking Glass for live status, and third-party databases for public routing records.`,
           )}
         />
 
@@ -49,33 +46,18 @@ export default function Network() {
           </Metric>
 
           <Metric
-            label={t('宣告前缀 / ORIGINATED PREFIXES', 'ORIGINATED PREFIXES')}
-            observed={t(`首次观测 ${N.ris.firstSeen}`, `FIRST SEEN ${N.ris.firstSeen}`)}
+            label={t('主地址块 / PRIMARY IPv6 BLOCK', 'PRIMARY IPv6 BLOCK')}
+            observed={t('RIPE · /40 为迁移兜底宣告', 'RIPE · /40 ANNOUNCED AS MIGRATION FALLBACK')}
           >
-            <span className="t-metric anim-up--metric">
-              {String(N.originatedPrefixes.length).padStart(2, '0')}
-            </span>
-            <div className="net__prefix" style={{ marginTop: 8 }}>
-              {/* RIR 与起始日期随前缀一起走：两条前缀来源不同，不可合并成一个标签 */}
-              {N.originatedPrefixes.map((p) => (
-                <div key={p.prefix}>
-                  <Scramble tag="span">{p.prefix.toUpperCase()}</Scramble>{' '}
-                  <span className="t-ui" style={{ color: 'var(--color-ash)', marginLeft: 10 }}>
-                    {p.rir} · {t(`${p.since} 起`, `SINCE ${p.since}`)}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <Scramble tag="div" className="net__prefix anim-up--metric">{N.primaryPrefix}</Scramble>
           </Metric>
 
           <Metric
-            label="RIS VISIBILITY"
-            /* snapshot, not a permanent property — provenance travels with it */
-            observed={`${N.ris.visible} / ${N.ris.total} FULL PEERS · ${N.ris.prefix.toUpperCase()} · OBSERVED ${N.ris.observedAt} · ${N.ris.source}`}
+            label={t('生产主机 / PRODUCTION IPv6', 'PRODUCTION IPv6')}
+            observed={t('清单地址 · 直连域名待核验', 'INVENTORY ADDRESS · DIRECT HOSTNAME PENDING VERIFICATION')}
           >
-            <span className="t-metric anim-up--metric">
-              <span data-countup={pct} data-countup-suffix="%">{pct}%</span>
-            </span>
+            <div className="net__prefix anim-up--metric">{N.productionHost.address}</div>
+            <span className="t-ui">{N.productionHost.host}</span>
           </Metric>
 
           <Metric label={t('路由节点 / ROUTING PRESENCE', 'ROUTING PRESENCE')}>
@@ -90,15 +72,35 @@ export default function Network() {
               ))}
             </div>
             <span className="metric__obs t-ui" style={{ display: 'block', marginTop: 10 }}>
-              {t('三节点通告 · BFD 故障检测', 'ANNOUNCED FROM THREE NODES · BFD FAILURE DETECTION')}
+              {t(`运维清单 · ${N.inventoryAsOf}`, `OPERATOR INVENTORY · ${N.inventoryAsOf}`)}
             </span>
           </Metric>
         </div>
 
+        <details className="net__inventory">
+          <summary className="t-ui">
+            {t(`主地址空间宣告清单（${N.originatedPrefixes.length} 条）与旧前缀状态`, `PRIMARY-SPACE ANNOUNCEMENT INVENTORY (${N.originatedPrefixes.length}) AND LEGACY STATUS`)}
+          </summary>
+          <p className="t-ui">{t(`来源：NOC 网络清单与 wg-enroll 地址规划 · ${N.inventoryAsOf}。此处不展示未经重新核验的 RIS 可见性。`, `Source: NOC network inventory and wg-enroll address plan · ${N.inventoryAsOf}. RIS visibility is omitted pending fresh verification.`)}</p>
+          <ul>
+            {N.originatedPrefixes.map((p) => (
+              <li key={p.prefix}><code>{p.prefix}</code> · {p.rir} · {t(p.role, p.roleEn)}</li>
+            ))}
+          </ul>
+          <p className="t-ui">{t('迁移中的旧前缀（不计入上方主地址空间清单）：', 'Legacy migration prefixes (excluded from the primary-space inventory above):')}</p>
+          <ul>
+            {N.legacyPrefixes.map((p) => (
+              <li key={p.prefix}><code>{p.prefix}</code> · {p.rir} · {t(p.status, p.statusEn)}</li>
+            ))}
+          </ul>
+        </details>
+
         <div className="net__links">
-          <BracketLink href={`https://${N.directService.host}/`} external highlight>
-            {N.directService.host}
-          </BracketLink>
+          {N.directService && (
+            <BracketLink href={`https://${N.directService.host}/`} external highlight>
+              {N.directService.host}
+            </BracketLink>
+          )}
           {networkLinks.map((l) => (
             <BracketLink key={l.label} href={l.href} external highlight>{l.label}</BracketLink>
           ))}

@@ -24,7 +24,8 @@
   /* type */
   --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont,
                'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+               'Noto Sans SC', monospace;
 
   --type-ui-size: 12px;
 

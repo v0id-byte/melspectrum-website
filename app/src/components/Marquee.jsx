@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useT } from '../i18n';
 import { useMarquee } from '../lib/motion/hooks';
+import { networkSnapshot as N } from '../data/network';
 
 const ITEMS = [
   'LAB-TESTED ±2 ¢',
@@ -11,8 +12,8 @@ const ITEMS = [
   'RESNET1D + HMM',
   'κ 0.715 · SLEEP-EDF',
   'ON-DEVICE COREML',
-  'AS218883',
-  '2a13:c8c3:e803::/48',
+  `AS${N.asn}`,
+  N.primaryPrefix,
 ];
 
 export default function Marquee() {
