@@ -47,17 +47,20 @@ export default function Network() {
 
           <Metric
             label={t('主地址块 / PRIMARY IPv6 BLOCK', 'PRIMARY IPv6 BLOCK')}
-            observed={t('RIPE · /40 为迁移兜底宣告', 'RIPE · /40 ANNOUNCED AS MIGRATION FALLBACK')}
+            /* snapshot, not a permanent property: provenance travels with the figure */
+            observed={t(
+              `${N.ris.source} · ${N.ris.visible} / ${N.ris.total} 全表 PEER 可见 · 观测于 ${N.ris.observedAt}`,
+              `${N.ris.visible} / ${N.ris.total} FULL PEERS · ${N.ris.source} · OBSERVED ${N.ris.observedAt}`,
+            )}
           >
             <Scramble tag="div" className="net__prefix anim-up--metric">{N.primaryPrefix}</Scramble>
           </Metric>
 
           <Metric
             label={t('生产主机 / PRODUCTION IPv6', 'PRODUCTION IPv6')}
-            observed={t('清单地址 · 直连域名待核验', 'INVENTORY ADDRESS · DIRECT HOSTNAME PENDING VERIFICATION')}
+            observed={N.productionHost.host}
           >
             <div className="net__prefix anim-up--metric">{N.productionHost.address}</div>
-            <span className="t-ui">{N.productionHost.host}</span>
           </Metric>
 
           <Metric label={t('路由节点 / ROUTING PRESENCE', 'ROUTING PRESENCE')}>
@@ -81,13 +84,13 @@ export default function Network() {
           <summary className="t-ui">
             {t(`主地址空间宣告清单（${N.originatedPrefixes.length} 条）与旧前缀状态`, `PRIMARY-SPACE ANNOUNCEMENT INVENTORY (${N.originatedPrefixes.length}) AND LEGACY STATUS`)}
           </summary>
-          <p className="t-ui">{t(`来源：NOC 网络清单与 wg-enroll 地址规划 · ${N.inventoryAsOf}。此处不展示未经重新核验的 RIS 可见性。`, `Source: NOC network inventory and wg-enroll address plan · ${N.inventoryAsOf}. RIS visibility is omitted pending fresh verification.`)}</p>
+          <p className="t-ui">{t(`来源：运维清单 · ${N.inventoryAsOf}。可见性数据仅针对 ${N.ris.prefix}（${N.ris.source} · ${N.ris.observedAt}）。`, `Source: operator inventory · ${N.inventoryAsOf}. The visibility figure covers ${N.ris.prefix} only (${N.ris.source} · ${N.ris.observedAt}).`)}</p>
           <ul>
             {N.originatedPrefixes.map((p) => (
               <li key={p.prefix}><code>{p.prefix}</code> · {p.rir} · {t(p.role, p.roleEn)}</li>
             ))}
           </ul>
-          <p className="t-ui">{t('迁移中的旧前缀（不计入上方主地址空间清单）：', 'Legacy migration prefixes (excluded from the primary-space inventory above):')}</p>
+          <p className="t-ui">{t('旧前缀（不计入上方主地址空间清单）：', 'Legacy prefixes (not part of the primary-space inventory above):')}</p>
           <ul>
             {N.legacyPrefixes.map((p) => (
               <li key={p.prefix}><code>{p.prefix}</code> · {p.rir} · {t(p.status, p.statusEn)}</li>

@@ -1,6 +1,6 @@
 // AS218883 — static operator inventory, not live routing telemetry.
 //
-// Sources checked read-only on 2026-10-02 (Asia/Taipei):
+// Sources checked read-only on 2026-10-02 UTC:
 // - melspectrum-noc @ 4379d48c78b6ebb1a9fe8cfee10bff2b340e2f3a:
 //   config/network.yaml, config/visibility.yaml and config/incidents/.
 // - wg-enroll @ ac29e6c5ebf685b7a7df75a75ef57de684b5542d:
@@ -12,9 +12,12 @@
 //    must not appear in originatedPrefixes. It covers the primary address space;
 //    legacy announcements are tracked separately, not silently declared gone.
 // 2. An inventory date is NOT a collector observation or a first-announced date.
-//    The old 2026-09-04 RIS observation of 2a13 has been removed. Do not restore
-//    a visibility figure without dated evidence scoped to its exact prefix.
+//    A visibility figure needs its own dated evidence scoped to its exact prefix
+//    (see `ris`), and must be re-measured, not carried over, when edited.
 // 3. Do not infer registration, ownership or validation status from this inventory.
+//    2a0e:4001:3000::/40 is RIPE space LEASED via ipam.dgtl.tech, and
+//    2602:f92a:a463::/48 is a reassignment out of MoeDove's ARIN /32. Neither is
+//    "our allocation" — never describe either that way anywhere on the site.
 // 4. Static data only; no public API calls at runtime.
 // 5. This website is served by GitHub Pages, not AS218883. A configured production
 //    address does not establish that a visitor-facing hostname serves it.
@@ -32,7 +35,7 @@ export const networkSnapshot = {
 
   // Configured primary-space announcements; not a live RIS/RIB observation.
   originatedPrefixes: [
-    { prefix: '2a0e:4001:3000::/40', rir: 'RIPE', role: '迁移兜底聚合', roleEn: 'Migration fallback aggregate' },
+    { prefix: '2a0e:4001:3000::/40', rir: 'RIPE', role: '聚合宣告', roleEn: 'Aggregate' },
     { prefix: '2a0e:4001:3010::/44', rir: 'RIPE', role: '美国区域', roleEn: 'US region' },
     { prefix: '2a0e:4001:3010::/48', rir: 'RIPE', role: '美国生产服务', roleEn: 'US production' },
     { prefix: '2a0e:4001:3011::/48', rir: 'RIPE', role: '美国网络设施', roleEn: 'US infrastructure' },
@@ -43,11 +46,21 @@ export const networkSnapshot = {
     { prefix: '2a0e:4001:3048::/48', rir: 'RIPE', role: '中国终端接入', roleEn: 'CN access' },
   ],
   legacyPrefixes: [
-    { prefix: '2a13:c8c3:e803::/48', rir: 'RIPE', status: '撤回中；AMS 已退役', statusEn: 'Withdrawing; AMS retired' },
-    { prefix: '2602:f92a:a463::/48', rir: 'ARIN', status: '退役中；清单仍记录宣告', statusEn: 'Retiring; announcements remain in inventory' },
+    { prefix: '2a13:c8c3:e803::/48', rir: 'RIPE', status: '已撤回（2026-09-28）；AMS 已退役', statusEn: 'Withdrawn (2026-09-28); AMS retired' },
+    { prefix: '2602:f92a:a463::/48', rir: 'ARIN', status: '退役中', statusEn: 'Retiring' },
   ],
 
-  // Both addressing.yaml and NOC reach_targets confirm this public host.
+  // RIPEstat routing-status, query_time 2026-10-02T00:00Z. Scoped to the /40 only.
+  ris: {
+    prefix: '2a0e:4001:3000::/40',
+    source: 'RIPE RIS',
+    observedAt: '2026-10-02',
+    visible: 316,
+    total: 316,
+    firstSeen: '2026-09-28',
+  },
+
+  // addressing.yaml + NOC reach_targets; AAAA and PTR agree (FCrDNS, 2026-10-02).
   productionHost: {
     host: 'web1.lax.us.net.melspectrum.com',
     address: '2a0e:4001:3010:400::80',
