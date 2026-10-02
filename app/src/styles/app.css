@@ -292,6 +292,10 @@
 .net__pop { display: flex; align-items: baseline; gap: 8px; }
 .net__pop b { font-weight: 300; font-size: 1.5rem; letter-spacing: -0.02em; }
 .net__links { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: var(--gap-y-md); }
+.net__inventory { margin-top: 28px; color: var(--color-ash); overflow-wrap: anywhere; }
+.net__inventory summary { cursor: pointer; color: var(--color-white); }
+.net__inventory p, .net__inventory ul { margin-top: 16px; }
+.net__inventory ul { padding-left: 20px; font-size: 0.875rem; line-height: 1.8; }
 
 /* ---------------- team ---------------- */
 .team-grid { display: grid; gap: 20px; margin-top: var(--gap-y-md); }
@@ -421,4 +425,3 @@
   .preloader__track { border: 1px solid CanvasText; }
   .preloader__bar { background: Highlight; }
 }
-

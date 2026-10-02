@@ -1,68 +1,78 @@
-// AS218883 — public network facts.
+// AS218883 — static operator inventory, not live routing telemetry.
+//
+// Sources checked read-only on 2026-10-02 UTC:
+// - melspectrum-noc @ 4379d48c78b6ebb1a9fe8cfee10bff2b340e2f3a:
+//   config/network.yaml, config/visibility.yaml and config/incidents/.
+// - wg-enroll @ ac29e6c5ebf685b7a7df75a75ef57de684b5542d:
+//   addressing.yaml and pops.yaml.
 //
 // GOVERNANCE (do not relax these when editing):
-//  1. Only ORIGINATED prefixes appear here. Provider-assigned management space
-//     (AVS 2a14:7580:c057::1/48, MoeDove 2602:f92a:100:d800::a/56, Route64
-//     2a11:6c7:f08:14::2/64) is NOT ours to advertise as a network asset.
-//  2. Telemetry is a dated SNAPSHOT, never a permanent property. Every observed
-//     figure carries its own provenance; `routingPresence` is operator-maintained
-//     and deliberately does NOT inherit the RIS observedAt/source.
-//  3. Three fact classes must not be derived from one another:
-//     registry fact / routing fact / operational fact.
-//  4. Static data only — the site never calls the RIPE API at runtime.
-//  5. No RPKI claim: the RIPE prefix's ROA status is still `unknown` upstream, and
-//     every figure here links out to pages where a visitor would see that.
-//  6. Prefixes carry their own RIR + first-announced date. The two are NOT
-//     equivalent in provenance and must not be flattened into one label:
-//       - 2a13:c8c3:e803::/48 is assigned to our own RIPE org (ORG-MTCL12-RIPE).
-//       - 2602:f92a:a463::/48 is a reassignment out of an ARIN /32 held by
-//         MoeDove. We originate it (ROA + IRR route6 both say origin AS218883),
-//         which is why it belongs here under rule 1 — but it is NOT our own
-//         allocation, and ARIN remote registration is not enabled yet. Do not
-//         describe it as "our allocation" anywhere on the site.
-//  7. The site itself is served by GitHub Pages (Fastly), NOT by AS218883.
-//     `directService` is the one property actually served from our own prefix.
-//     Never write "this website runs on our own IPv6 network" — it is false.
+// 1. Registry, configured announcements, and measured reachability are separate
+//    facts. Provider management addresses and unannounced address-plan reserves
+//    must not appear in originatedPrefixes. It covers the primary address space;
+//    legacy announcements are tracked separately, not silently declared gone.
+// 2. An inventory date is NOT a collector observation or a first-announced date.
+//    A visibility figure needs its own dated evidence scoped to its exact prefix
+//    (see `ris`), and must be re-measured, not carried over, when edited.
+// 3. Do not infer registration, ownership or validation status from this inventory.
+//    2a0e:4001:3000::/40 is RIPE space LEASED via ipam.dgtl.tech, and
+//    2602:f92a:a463::/48 is a reassignment out of MoeDove's ARIN /32. Neither is
+//    "our allocation" — never describe either that way anywhere on the site.
+// 4. Static data only; no public API calls at runtime.
+// 5. This website is served by GitHub Pages, not AS218883. A configured production
+//    address does not establish that a visitor-facing hostname serves it.
+//    directService stays null until DNS and service checks support that claim.
+//    Google Public DNS checked 2026-10-01 UTC: v6.pianotuner.top had no AAAA;
+//    geofeed.melspectrum.com still answered with the legacy ARIN web address.
+// 6. Presence and backbone links follow the NOC inventory, not transit coverage.
 
 export const networkSnapshot = {
-  // registry fact
   asn: 218883,
   legalName: 'Melspectrum Technology Co., Ltd.',
   rir: 'RIPE',
+  inventoryAsOf: '2026-10-01',
+  primaryPrefix: '2a0e:4001:3000::/40',
 
-  // routing fact — what AS218883 actually originates (see governance rule 6)
+  // Configured primary-space announcements; not a live RIS/RIB observation.
   originatedPrefixes: [
-    { prefix: '2a13:c8c3:e803::/48', rir: 'RIPE', since: '2026-08-27' },
-    { prefix: '2602:f92a:a463::/48', rir: 'ARIN', since: '2026-09-05' },
+    { prefix: '2a0e:4001:3000::/40', rir: 'RIPE', role: '聚合宣告', roleEn: 'Aggregate' },
+    { prefix: '2a0e:4001:3010::/44', rir: 'RIPE', role: '美国区域', roleEn: 'US region' },
+    { prefix: '2a0e:4001:3010::/48', rir: 'RIPE', role: '美国生产服务', roleEn: 'US production' },
+    { prefix: '2a0e:4001:3011::/48', rir: 'RIPE', role: '美国网络设施', roleEn: 'US infrastructure' },
+    { prefix: '2a0e:4001:3018::/48', rir: 'RIPE', role: '美国终端接入', roleEn: 'US access' },
+    { prefix: '2a0e:4001:3030::/44', rir: 'RIPE', role: '欧洲区域', roleEn: 'EU region' },
+    { prefix: '2a0e:4001:3031::/48', rir: 'RIPE', role: '欧洲网络设施', roleEn: 'EU infrastructure' },
+    { prefix: '2a0e:4001:3042::/48', rir: 'RIPE', role: '中国计算网络', roleEn: 'CN compute' },
+    { prefix: '2a0e:4001:3048::/48', rir: 'RIPE', role: '中国终端接入', roleEn: 'CN access' },
+  ],
+  legacyPrefixes: [
+    { prefix: '2a13:c8c3:e803::/48', rir: 'RIPE', status: '已撤回（2026-09-28）；AMS 已退役', statusEn: 'Withdrawn (2026-09-28); AMS retired' },
+    { prefix: '2602:f92a:a463::/48', rir: 'ARIN', status: '退役中', statusEn: 'Retiring' },
   ],
 
-  // routing fact — observed by public collectors.
-  // Scoped to ONE prefix on purpose: RIS had not yet observed the ARIN prefix at
-  // the snapshot time (announced 2026-09-05; RIS dataset was still at 09-04).
-  // Do not relabel this as covering both prefixes until RIS actually shows both.
+  // RIPEstat routing-status, query_time 2026-10-02T00:00Z. Scoped to the /40 only.
   ris: {
-    prefix: '2a13:c8c3:e803::/48',
+    prefix: '2a0e:4001:3000::/40',
     source: 'RIPE RIS',
-    observedAt: '2026-09-04',
-    visible: 321,
-    total: 321,
-    firstSeen: '2026-08-27',
+    observedAt: '2026-10-02',
+    visible: 316,
+    total: 316,
+    firstSeen: '2026-09-28',
   },
 
-  // operational fact — a page a visitor can open that is actually served from
-  // an address inside our own prefix (not GitHub Pages, not Cloudflare).
-  directService: {
-    host: 'v6.pianotuner.top',
-    address: '2602:f92a:a463:400::80',
-    ipv6Only: true,
+  // addressing.yaml + NOC reach_targets; AAAA and PTR agree (FCrDNS, 2026-10-02).
+  productionHost: {
+    host: 'web1.lax.us.net.melspectrum.com',
+    address: '2a0e:4001:3010:400::80',
   },
+  directService: null,
 
-  // operational fact — routing control-plane endpoints we actually run.
-  // Transit coverage direction is NOT a POP.
   routingPresence: [
-    { code: 'AMS', region: 'Europe', regionEn: 'Europe' },
-    { code: 'SLC', region: '北美 · 山区', regionEn: 'US Mountain' },
-    { code: 'LAX', region: '北美 · 西岸', regionEn: 'US West' },
+    { code: 'LAX', region: '洛杉矶', regionEn: 'Los Angeles', coords: [34.05, -118.24] },
+    { code: 'SLC', region: '盐湖城', regionEn: 'Salt Lake City', coords: [40.76, -111.89], backboneTo: 'LAX' },
+    { code: 'HKG', region: '香港', regionEn: 'Hong Kong', coords: [22.32, 114.17], backboneTo: 'LAX' },
+    { code: 'LON', region: '伦敦', regionEn: 'London', coords: [51.51, -0.13], backboneTo: 'LAX' },
+    { code: 'STL', region: '圣路易斯', regionEn: 'St. Louis', coords: [38.63, -90.20], backboneTo: 'LAX' },
   ],
 };
 

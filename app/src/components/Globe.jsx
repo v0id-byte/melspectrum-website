@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 import { networkSnapshot as N } from '../data/network';
 import { MASK_W, MASK_H, MASK_B64 } from '../data/landmask';
 
-// 我们实际运营的三个路由控制面端点的真实经纬度
-const COORDS = { AMS: [52.37, 4.90], SLC: [40.76, -111.89], LAX: [34.05, -118.24] };
+// Coordinates and backbone links share the dated operator inventory.
+const COORDS = Object.fromEntries(N.routingPresence.map((p) => [p.code, p.coords]));
 
 /**
  * 陆地点阵：模块级只算一次。
@@ -57,7 +57,7 @@ const toVec = (lat, lon) => {
   return [Math.cos(p) * Math.sin(l), Math.sin(p), Math.cos(p) * Math.cos(l)];
 };
 
-/** 两点间大圆弧（slerp），代表 iBGP 全互联的真实拓扑 */
+/** Great-circle arcs depict the configured backbone, not live traffic. */
 function greatArc(a, b, segs = 64) {
   const A = toVec(...a);
   const B = toVec(...b);
@@ -74,19 +74,12 @@ function greatArc(a, b, segs = 64) {
   return pts;
 }
 
-const ARCS = (() => {
-  const codes = Object.keys(COORDS);
-  const out = [];
-  for (let i = 0; i < codes.length; i += 1) {
-    for (let j = i + 1; j < codes.length; j += 1) {
-      out.push(greatArc(COORDS[codes[i]], COORDS[codes[j]]));
-    }
-  }
-  return out;
-})();
+const ARCS = N.routingPresence
+  .filter((p) => p.backboneTo)
+  .map((p) => greatArc(p.coords, COORDS[p.backboneTo]));
 
 /**
- * 装饰性可视化，aria-hidden。它描绘的每个事实（三个 POP、互联拓扑）在
+ * 装饰性可视化，aria-hidden。节点来自与页面文字相同的运维清单，
  * <Network/> 里都有对应的真实 DOM 文本，canvas 消失不丢任何信息。
  */
 export default function Globe({ className = '' }) {
