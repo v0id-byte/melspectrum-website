@@ -1,6 +1,13 @@
 # RFC 8805 geofeed for AS218883 (Melspectrum Technology Co., Ltd.) - 2a0e:4001:3000::/40
-# Generated from wg-enroll addressing.yaml; do not edit by hand.
+# Canonical: https://melspectrum.com/geofeed.csv
+# Generated from wg-enroll addressing.yaml and registry.yaml; do not edit by hand.
+# Access entries describe network egress, not users' physical locations.
+# Empty location fields withdraw a location claim; use longest-prefix matching.
 # prefix,country,region,city,postal
+2602:f92a:a463::/48,,,,
+2602:f92a:a463:400::80/128,US,US-CA,Los Angeles,
+2602:f92a:a463:700::1/128,US,US-CA,Los Angeles,
+2602:f92a:a463:ff00::2/128,US,,,
 2a0e:4001:3010::/44,US,,,
 2a0e:4001:3010:400::/64,US,US-CA,Los Angeles,
 2a0e:4001:3011:ff00::/64,US,,,
@@ -9,8 +16,10 @@
 2a0e:4001:3020::/44,HK,,Hong Kong,
 2a0e:4001:3030::/44,GB,,,
 2a0e:4001:3031:ff00::/64,GB,GB-ENG,London,
-2a0e:4001:3040::/44,CN,,,
-2a0e:4001:3042:100::/64,CN,CN-GD,Shenzhen,
-2a0e:4001:3048:200::/64,CN,CN-GD,Shenzhen,
-2a0e:4001:30a0::/44,JP,JP-13,Tokyo,
-2a0e:4001:30b0::/44,SG,,Singapore,
+2a0e:4001:3040::/44,,,,
+2a0e:4001:3042:100::1/128,HK,,Hong Kong,
+2a0e:4001:3042:100::10/128,CN,CN-GD,Shenzhen,
+2a0e:4001:3048:200::1/128,HK,,Hong Kong,
+2a0e:4001:3048:200::10/128,CN,CN-GD,Shenzhen,
+2a0e:4001:30a0::/44,,,,
+2a0e:4001:30b0::/44,,,,
