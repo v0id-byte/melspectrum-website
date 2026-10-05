@@ -21,9 +21,11 @@
 // 4. Static data only; no public API calls at runtime.
 // 5. This website is served by GitHub Pages, not AS218883. A configured production
 //    address does not establish that a visitor-facing hostname serves it.
-//    directService stays null until DNS and service checks support that claim.
-//    Google Public DNS checked 2026-10-01 UTC: v6.pianotuner.top had no AAAA;
-//    geofeed.melspectrum.com still answered with the legacy ARIN web address.
+//    directService needs DNS and service checks behind it; set it back to null
+//    if they stop holding. 2026-10-05 UTC: Google Public DNS answers
+//    v6.pianotuner.top AAAA 2a0e:4001:3010:400::80 (= productionHost) and
+//    A 192.255.139.83; HTTPS over IPv6 returned 200 from 14/14 Globalping probes.
+//    It is dual-stack: only IPv6 visitors reach it through AS218883.
 // 6. Presence and backbone links follow the NOC inventory, not transit coverage.
 
 export const networkSnapshot = {
@@ -65,7 +67,10 @@ export const networkSnapshot = {
     host: 'web1.lax.us.net.melspectrum.com',
     address: '2a0e:4001:3010:400::80',
   },
-  directService: null,
+  directService: {
+    host: 'v6.pianotuner.top',
+    address: '2a0e:4001:3010:400::80',
+  },
 
   routingPresence: [
     { code: 'LAX', region: '洛杉矶', regionEn: 'Los Angeles', coords: [34.05, -118.24] },
